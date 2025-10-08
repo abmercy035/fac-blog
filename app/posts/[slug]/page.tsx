@@ -168,7 +168,7 @@ export default async function PostPage({ params }: PostPageProps) {
                       {post.author.name}
                     </h3>
                   </Link>
-                  <p className="text-sm text-muted-foreground">{post.author.bio}</p>
+                  <p className="text-sm text-muted-foreground">{post.author.bio.slice(0, 40)}...</p>
                 </div>
               </div>
 
