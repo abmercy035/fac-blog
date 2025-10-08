@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { Menu, Home, Folder, Users, Info } from "lucide-react"
+import { Menu, Home, Folder, Users, Info, Search } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { SearchDialog } from "./search-dialog"
@@ -29,14 +29,14 @@ export function MobileNav() {
           <SheetTitle>Navigation</SheetTitle>
         </SheetHeader>
 
-        <div className="mt-8 space-y-6 px-4 cursor-pointer">
+        <div className="mt-8 space-y-6 px-4">
           {/* Search */}
           <div>
             <h3 className="text-sm font-medium text-muted-foreground mb-3">Search</h3>
             <SearchDialog
               trigger={
-                <Button variant="outline" className="w-full justify-start bg-transparent">
-                  <Menu className="h-6 w-6 mr-2  cursor-pointer" />
+                <Button variant="outline" className="w-full justify-start bg-transparent cursor-pointer">
+                  <Search className="h-6 w-6 mr-2" />
                   Search posts...
                 </Button>
               }
@@ -56,7 +56,7 @@ export function MobileNav() {
                     onClick={() => setOpen(false)}
                     className="flex items-center space-x-3 px-3 py-2 rounded-lg text-foreground hover:bg-muted transition-colors"
                   >
-                    <Icon className="h-4 w-4" />
+                    <Icon className="h-6 w-6" />
                     <span>{item.label}</span>
                   </Link>
                 )

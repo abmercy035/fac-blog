@@ -95,8 +95,8 @@ export function BlogHeader() {
             <div className="hidden sm:block">
               <SearchDialog
                 trigger={
-                  <Button variant="outline" className="w-64 justify-start text-muted-foreground bg-transparent">
-                    <Search className="h-4 w-4 mr-2" />
+                  <Button variant="outline" className="w-64 justify-start text-muted-foreground bg-transparent cursor-pointer">
+                    <Search className="h-6 w-6 mr-2" />
                     Search posts...
                   </Button>
                 }
@@ -108,7 +108,7 @@ export function BlogHeader() {
               <SearchDialog
                 trigger={
                   <Button variant="ghost" size="icon">
-                    <Search className="h-4 w-4" />
+                    <Search className="h-6 w-6" />
                   </Button>
                 }
               />
