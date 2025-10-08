@@ -7,6 +7,7 @@ import { Suspense } from "react"
 import { AuthProvider } from "@/hooks/use-auth"
 import { BlogFooter } from "@/components/blog-footer"
 import { siteConfig } from "@/lib/site-config"
+import { Toaster } from "sonner"
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -119,6 +120,7 @@ export default function RootLayout({
               </main>
               <BlogFooter />
             </div>
+            <Toaster position="top-center" richColors />
             <Analytics />
           </Suspense>
         </AuthProvider>

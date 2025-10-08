@@ -51,7 +51,7 @@ export default function HomePage() {
         <section className="text-center mb-12">
           <h1 className="text-5xl font-bold text-foreground mb-6 text-balance">Faith, Art and Culture</h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto text-pretty leading-relaxed">
-When faith meets art, culture transforms — welcome to the intersection of belief, creativity, and influence.          </p>
+Faith Meets Art, Rredefining Culture </p>
         </section>
 
         {/* Subscribe Section */}

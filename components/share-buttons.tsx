@@ -4,6 +4,7 @@ import { Share2, Twitter, Facebook, Linkedin, Link2, Check } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { toast } from "sonner"
 
 interface ShareButtonsProps {
   title: string
@@ -32,22 +33,54 @@ export function ShareButtons({ title, url, excerpt }: ShareButtonsProps) {
       linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}&title=${encodedTitle}&summary=${encodedText}`,
     }
 
-    if (platform === "native" && navigator.share) {
-      try {
-        await navigator.share(shareData)
-      } catch (error) {
-        console.log("Error sharing:", error)
+    if (platform === "native") {
+      if (typeof navigator !== "undefined" && navigator.share) {
+        try {
+          await navigator.share(shareData)
+          toast.success("Shared successfully!")
+        } catch (error: any) {
+          // User cancelled or error occurred
+          if (error.name !== "AbortError") {
+            console.log("Error sharing:", error)
+            toast.error("Failed to share")
+          }
+        }
       }
     } else if (platform === "copy") {
-      try {
-        await navigator.clipboard.writeText(fullUrl)
-        setCopied(true)
-        setTimeout(() => setCopied(false), 2000)
-      } catch (error) {
-        console.log("Error copying to clipboard:", error)
+      if (typeof navigator !== "undefined" && navigator.clipboard) {
+        try {
+          await navigator.clipboard.writeText(fullUrl)
+          setCopied(true)
+          setTimeout(() => setCopied(false), 2000)
+          toast.success("Link copied to clipboard!")
+        } catch (error) {
+          console.log("Error copying to clipboard:", error)
+          // Fallback for older browsers
+          const textArea = document.createElement("textarea")
+          textArea.value = fullUrl
+          textArea.style.position = "fixed"
+          textArea.style.left = "-999999px"
+          document.body.appendChild(textArea)
+          textArea.select()
+          try {
+            document.execCommand("copy")
+            setCopied(true)
+            setTimeout(() => setCopied(false), 2000)
+            toast.success("Link copied to clipboard!")
+          } catch (err) {
+            console.log("Fallback copy failed:", err)
+            toast.error("Failed to copy link")
+          }
+          document.body.removeChild(textArea)
+        }
       }
     } else if (shareUrls[platform as keyof typeof shareUrls]) {
-      window.open(shareUrls[platform as keyof typeof shareUrls], "_blank", "width=600,height=400")
+      if (typeof window !== "undefined") {
+        const shareWindow = window.open(shareUrls[platform as keyof typeof shareUrls], "_blank", "width=600,height=400")
+        if (!shareWindow) {
+          toast.error("Please allow popups to share")
+        }
+      }
     }
   }
 
@@ -60,7 +93,7 @@ export function ShareButtons({ title, url, excerpt }: ShareButtonsProps) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-48">
-        {typeof window !== "undefined"  && (
+        {typeof navigator !== "undefined" && navigator.share && (
           <DropdownMenuItem onClick={() => handleShare("native")}>
             <Share2 className="h-4 w-4 mr-2" />
             Share
