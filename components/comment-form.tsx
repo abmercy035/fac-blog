@@ -48,7 +48,7 @@ export function CommentForm({ postId, onCommentAdded }: CommentFormProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-xl">Leave a Comment</CardTitle>
+        <CardTitle className="text-base md:text-xl">Leave a Comment</CardTitle>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -56,6 +56,7 @@ export function CommentForm({ postId, onCommentAdded }: CommentFormProps) {
             <div>
               <Input
                 placeholder="Your name"
+                className="text-sm md:text-base"
                 value={author}
                 onChange={(e) => setAuthor(e.target.value)}
                 required
@@ -66,6 +67,7 @@ export function CommentForm({ postId, onCommentAdded }: CommentFormProps) {
               <Input
                 type="email"
                 placeholder="Your email"
+                className="text-sm md:text-base"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -81,10 +83,10 @@ export function CommentForm({ postId, onCommentAdded }: CommentFormProps) {
             required
             disabled={isSubmitting}
             rows={4}
-            className="resize-none"
+                className="text-sm md:text-base resize-none"
           />
 
-          <Button type="submit" disabled={isSubmitting || !author.trim() || !email.trim() || !content.trim()}>
+          <Button type="submit" disabled={isSubmitting || !author.trim() || !email.trim() || !content.trim()} className="text-sm md:text-base">
             {isSubmitting ? (
               "Posting..."
             ) : (

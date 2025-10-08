@@ -132,7 +132,7 @@ export default async function PostPage({ params }: PostPageProps) {
         <article className="max-w-4xl mx-auto">
           {/* Hero Section */}
           <div className="mb-8">
-            <div className="flex items-center space-x-4 text-sm text-muted-foreground mb-4">
+            <div className="flex items-center space-x-4 md:text-sm text-xs text-muted-foreground mb-4">
               <Badge variant="secondary" className="bg-primary/90 text-primary-foreground">
                 {post.category.name}
               </Badge>
@@ -146,9 +146,9 @@ export default async function PostPage({ params }: PostPageProps) {
               </div>
             </div>
 
-            <h1 className="text-5xl font-bold text-foreground mb-6 text-balance">{post.title}</h1>
+            <h1 className="text-2xl md:text-5xl font-bold text-foreground mb-6 text-balance">{post.title}</h1>
 
-            <p className="text-xl text-muted-foreground mb-8 text-pretty leading-relaxed">{post.excerpt}</p>
+            <p className="text-base md:text-xl text-muted-foreground mb-8 text-pretty leading-relaxed">{post.excerpt}</p>
 
             {/* Author Info */}
             <div className="flex items-center justify-between mb-8">
@@ -168,7 +168,9 @@ export default async function PostPage({ params }: PostPageProps) {
                       {post.author.name}
                     </h3>
                   </Link>
-                  <p className="text-sm text-muted-foreground">{post.author.bio.slice(0, 40)}...</p>
+                  <p className="text-sm text-muted-foreground line-clamp-1">
+                    {post.author.bio}
+                  </p>
                 </div>
               </div>
 
@@ -196,7 +198,7 @@ export default async function PostPage({ params }: PostPageProps) {
           </div>
 
           {/* Tags */}
-          <div className="flex flex-wrap gap-2 mb-8">
+          <div className="flex flex-wrap gap-2 mb-8 text-sm md:text-base">
             {post.tags.map((tag) => (
               <Badge key={tag} variant="outline">
                 {tag}
@@ -218,9 +220,9 @@ export default async function PostPage({ params }: PostPageProps) {
                   </AvatarFallback>
                 </Avatar>
                 <div className="flex-1">
-                  <h3 className="text-xl font-semibold text-foreground mb-2">About {post.author.name}</h3>
-                  <p className="text-muted-foreground mb-4 text-pretty">{post.author.bio}</p>
-                  <div className="flex space-x-4">
+                  <h3 className="text-base md:text-xl font-semibold text-foreground mb-2">About {post.author.name}</h3>
+                  <p className="text-muted-foreground mb-4 text-sm md:text-base text-pretty">{post.author.bio}</p>
+                  <div className="flex space-x-4 text-sm md:text-base">
                
                     {post.author.social.facebook && (
                       <a

@@ -18,13 +18,13 @@ export function CommentItem({ comment }: CommentItemProps) {
 
       <div className="flex-1">
         <div className="flex items-center space-x-2 mb-2">
-          <h4 className="font-semibold text-foreground">{comment.author}</h4>
-          <span className="text-sm text-muted-foreground">
+          <h4 className="font-semibold text-foreground text-sm md:text-base">{comment.author}</h4>
+          <span className="text-xs md:text-sm text-muted-foreground">
             {formatDistanceToNow(new Date(comment.createdAt), { addSuffix: true })}
           </span>
         </div>
 
-        <p className="text-muted-foreground text-pretty leading-relaxed">{comment.content}</p>
+        <p className="text-muted-foreground text-pretty leading-relaxed text-sm md:text-base">{comment.content}</p>
 
         {comment.replies && comment.replies.length > 0 && (
           <div className="mt-4 space-y-4 pl-4 border-l-2 border-border">

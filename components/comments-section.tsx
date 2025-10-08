@@ -45,7 +45,7 @@ export function CommentsSection({ postId, initialCommentsCount }: CommentsSectio
       {/* Comments List */}
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center space-x-2">
+          <CardTitle className="flex items-center space-x-2 text-sm md:text-base">
             <MessageCircle className="h-5 w-5" />
             <span>Comments ({commentsCount})</span>
           </CardTitle>
@@ -75,7 +75,7 @@ export function CommentsSection({ postId, initialCommentsCount }: CommentsSectio
           ) : (
             <div className="text-center py-8">
               <MessageCircle className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-              <p className="text-muted-foreground">No comments yet. Be the first to share your thoughts!</p>
+              <p className="text-muted-foreground text-sm md:text-base">No comments yet. Be the first to share your thoughts!</p>
             </div>
           )}
         </CardContent>
