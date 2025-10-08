@@ -35,8 +35,9 @@ export function BlogHeader() {
     <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          <Link href="/" className="text-3xl font-bold text-foreground mr-8">
+          <Link href="/" className="text-3xl font-bold text-foreground mr-8 flex flex-col">
             FAC
+            <i className="text-xs"> Faith Meets Art, Redefining Culture.</i>
           </Link>
 
           <nav className="hidden md:flex items-center space-x-8 max-lg:space-x-2">
