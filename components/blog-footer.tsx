@@ -15,7 +15,8 @@ export function BlogFooter() {
               FAC
             </Link>
             <p className="text-sm text-background/80">
-              Faith, Art & Culture - Where belief shapes creative expression and artistic vision.
+Faith Meets Art, Rredefining Culture
+
             </p>
             <div className="flex space-x-4 pt-2">
               <a href="#" className="hover:text-primary transition-colors" aria-label="Facebook">

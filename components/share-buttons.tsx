@@ -2,7 +2,7 @@
 
 import { Share2, Twitter, Facebook, Linkedin, Link2, Check } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { toast } from "sonner"
 
@@ -14,6 +14,12 @@ interface ShareButtonsProps {
 
 export function ShareButtons({ title, url, excerpt }: ShareButtonsProps) {
   const [copied, setCopied] = useState(false)
+  const [canShare, setCanShare] = useState(false)
+
+  // Check if native share is available after component mounts
+  useEffect(() => {
+    setCanShare(typeof navigator !== "undefined" && "share" in navigator)
+  }, [])
 
   const shareData = {
     title,
@@ -34,7 +40,7 @@ export function ShareButtons({ title, url, excerpt }: ShareButtonsProps) {
     }
 
     if (platform === "native") {
-      if (typeof navigator !== "undefined" && navigator.share) {
+      if (typeof navigator !== "undefined" && "share" in navigator) {
         try {
           await navigator.share(shareData)
           toast.success("Shared successfully!")
@@ -93,7 +99,7 @@ export function ShareButtons({ title, url, excerpt }: ShareButtonsProps) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-48">
-        {typeof navigator !== "undefined" && navigator.share && (
+        {canShare && (
           <DropdownMenuItem onClick={() => handleShare("native")}>
             <Share2 className="h-4 w-4 mr-2" />
             Share

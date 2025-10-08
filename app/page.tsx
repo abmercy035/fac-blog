@@ -135,12 +135,6 @@ Faith Meets Art, Rredefining Culture </p>
           )}
         </section>
       </main>
-
-      <footer className="border-t border-border bg-card/30 py-12 mt-20">
-        <div className="container mx-auto px-4 text-center">
-          <p className="text-muted-foreground">© 2025 FAC - Faith, Art & Culture. Where belief shapes creativity.</p>
-        </div>
-      </footer>
     </div>
   )
 }
