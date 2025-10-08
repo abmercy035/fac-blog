@@ -45,7 +45,7 @@ Ready to bring your vision to life?
 
         {/* Benefits Section */}
         <div className="max-w-6xl mx-auto mb-16">
-          <h2 className="text-3xl font-bold text-center mb-12">What My Writing Services Offers</h2>
+          <h2 className="text-3xl font-bold text-center mb-12">What My Writing Services Offer</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <Card className="border-0 shadow-md hover:shadow-lg transition-shadow">
               <CardHeader>
