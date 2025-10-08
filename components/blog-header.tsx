@@ -54,7 +54,7 @@ export function BlogHeader() {
             {/* Categories Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger className={cn(
-                "flex items-center gap-1 transition-colors outline-none",
+                "flex items-center gap-1 transition-colors outline-none cursor-pointer",
                 pathname.startsWith("/categories") ? "text-primary font-medium" : "text-muted-foreground hover:text-primary"
               )}>
                 Categories <ChevronDown className="h-4 w-4" />
@@ -73,7 +73,7 @@ export function BlogHeader() {
             {/* Services Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger className={cn(
-                "flex items-center gap-1 transition-colors outline-none",
+                "flex items-center gap-1 transition-colors outline-none cursor-pointer",
                 pathname.startsWith("/services") ? "text-primary font-medium" : "text-muted-foreground hover:text-primary"
               )}>
                 Services <ChevronDown className="h-4 w-4" />

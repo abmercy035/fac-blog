@@ -60,7 +60,7 @@ When faith meets art, culture transforms — welcome to the intersection of beli
             <input
               type="email"
               placeholder="Enter your email"
-              className="flex-1 px-6 py-4 bg-secondary border-2 border-border text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary text-lg"
+              className="flex-1 px-6 py-4 bg-secondary border-2 border-border text-background placeholder:text-background focus:outline-none focus:border-primary text-lg"
               style={{ borderRadius: '0.5rem' }}
               required
             />

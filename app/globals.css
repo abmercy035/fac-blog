@@ -5,23 +5,23 @@
 
 :root {
   /* Natural earthy theme - Cornslik, Fawn, Liver, Dark Olive, Kombu Green */
-    --background: #fefae0;
-    /* --background: #fff; */
+    /* --background: #fefae0; */
+    --background: #eee;
     --foreground: #283618;
-    --card: #fefae0;
+    --card: #eee;
     --card-foreground: #283618;
-    --popover: #fefae0;
+    --popover: #eee;
     --popover-foreground: #283618;
     --primary: #bc6c25;
-    --primary-foreground: #fefae0;
+    --primary-foreground: #eee;
     --secondary: #dda15e;
     --secondary-foreground: #283618;
     --muted: #dda15e;
     --muted-foreground: #606c38;
     --accent: #bc6c25;
-    --accent-foreground: #fefae0;
+    --accent-foreground: #eee;
   --destructive: #d32f2f;
-  --destructive-foreground: #fefae0;
+  --destructive-foreground: #eee;
     --border: #dda15e;
     --input: #dda15e;
     --ring: #bc6c25;
@@ -29,14 +29,14 @@
     --chart-2: #283618;
     --chart-3: #dda15e;
     --chart-4: #606c38;
-    --chart-5: #fefae0;
+    --chart-5: #eee;
   --radius: 0rem;
   --sidebar: #283618;
-    --sidebar-foreground: #fefae0;
+    --sidebar-foreground: #eee;
     --sidebar-primary: #bc6c25;
-    --sidebar-primary-foreground: #fefae0;
+    --sidebar-primary-foreground: #eee;
     --sidebar-accent: #606c38;
-    --sidebar-accent-foreground: #fefae0;
+    --sidebar-accent-foreground: #eee;
     --sidebar-border: #606c38;
     --sidebar-ring: #bc6c25;
 }
