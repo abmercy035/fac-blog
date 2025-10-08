@@ -9,8 +9,21 @@ import { Label } from "@/components/ui/label"
 import { Pen, BookOpen, Sparkles, Target, Edit3, Clock } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Writing Services | FAC",
-  description: "Professional writing services that bring your faith-centered stories, content, and ideas to life with clarity and creativity.",
+  title: "Writing Services",
+  description: "Professional writing services that bring your faith-centered stories, content, and ideas to life with clarity and creativity. Blogs, books, devotionals, and more.",
+  keywords: [
+    "faith writing",
+    "Christian writing services",
+    "devotional writing",
+    "blog writing",
+    "book writing",
+    "content writing",
+    "faith-based content",
+  ],
+  openGraph: {
+    title: "Writing Services | FAC",
+    description: "Professional writing services that bring your faith-centered stories, content, and ideas to life with clarity and creativity.",
+  },
 }
 
 export default function WritingPage() {

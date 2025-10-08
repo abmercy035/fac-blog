@@ -1,6 +1,18 @@
 import { BlogHeader } from "@/components/blog-header"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "About",
+  description:
+    "Learn about FAC - Faith, Art & Culture. A thoughtful space exploring how belief shapes creativity and how art influences culture.",
+  openGraph: {
+    title: "About FAC - Faith, Art & Culture",
+    description:
+      "Discover our mission to explore the intersection of faith, art, and culture through thoughtful writing and creative expression.",
+  },
+}
 
 export default function AboutPage() {
   const themes = [
@@ -84,9 +96,4 @@ export default function AboutPage() {
       </main>
     </div>
   )
-}
-
-export const metadata = {
-  title: "About | FAC - Faith, Art & Culture",
-  description: "A thoughtful space where faith, art, and culture converge. Exploring how belief shapes creativity and art influences culture.",
 }

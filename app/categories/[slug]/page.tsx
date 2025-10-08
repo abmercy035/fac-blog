@@ -6,10 +6,30 @@ import { BlogPostCard } from "@/components/blog-post-card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { blogApi } from "@/lib/api"
+import { siteConfig } from "@/lib/site-config"
+import { Metadata } from "next"
 
 interface CategoryPageProps {
   params: {
     slug: string
+  }
+}
+
+export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
+  const category = await blogApi.getCategory(params.slug)
+
+  if (!category) {
+    return {}
+  }
+
+  return {
+    title: category.name,
+    description: category.description,
+    openGraph: {
+      title: `${category.name} | FAC Categories`,
+      description: category.description,
+      url: `${siteConfig.url}/categories/${category.slug}`,
+    },
   }
 }
 
@@ -80,19 +100,4 @@ export async function generateStaticParams() {
   return categories.map((category) => ({
     slug: category.slug,
   }))
-}
-
-export async function generateMetadata({ params }: CategoryPageProps) {
-  const category = await blogApi.getCategory(params.slug)
-
-  if (!category) {
-    return {
-      title: "Category Not Found",
-    }
-  }
-
-  return {
-    title: `${category.name} | FAC Categories`,
-    description: category.description,
-  }
 }

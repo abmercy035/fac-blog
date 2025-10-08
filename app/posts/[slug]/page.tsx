@@ -12,10 +12,59 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { blogApi } from "@/lib/api"
+import { siteConfig } from "@/lib/site-config"
+import { Metadata } from "next"
 
 interface PostPageProps {
   params: {
     slug: string
+  }
+}
+
+export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
+  const post = await blogApi.getPost(params.slug)
+
+  if (!post) {
+    return {}
+  }
+
+  const publishedTime = new Date(post.publishedAt).toISOString()
+  const modifiedTime = new Date(post.updatedAt).toISOString()
+  const url = `${siteConfig.url}/posts/${post.slug}`
+
+  return {
+    title: post.title,
+    description: post.excerpt,
+    keywords: [...post.tags, post.category.name, "faith", "art", "culture"],
+    authors: [{ name: post.author.name }],
+    alternates: {
+      canonical: url,
+    },
+    openGraph: {
+      type: "article",
+      url,
+      title: post.title,
+      description: post.excerpt,
+      publishedTime,
+      modifiedTime,
+      authors: [post.author.name],
+      tags: post.tags,
+      images: [
+        {
+          url: post.featuredImage,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt,
+      images: [post.featuredImage],
+      creator: "@fac_blog",
+    },
   }
 }
 
@@ -28,9 +77,46 @@ export default async function PostPage({ params }: PostPageProps) {
 
   const readingTime = Math.ceil(post.content.split(" ").length / 200)
 
+  // Structured data for blog post
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.excerpt,
+    image: post.featuredImage,
+    datePublished: post.publishedAt,
+    dateModified: post.updatedAt,
+    author: {
+      "@type": "Person",
+      name: post.author.name,
+      url: `${siteConfig.url}/authors/${post.author.id}`,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: siteConfig.name,
+      logo: {
+        "@type": "ImageObject",
+        url: `${siteConfig.url}/placeholder-logo.png`,
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${siteConfig.url}/posts/${post.slug}`,
+    },
+    keywords: post.tags.join(", "),
+    articleSection: post.category.name,
+    wordCount: post.content.split(" ").length,
+    timeRequired: `PT${readingTime}M`,
+  }
+
   return (
-    <div className="min-h-screen bg-background">
-      <BlogHeader />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <div className="min-h-screen bg-background">
+        <BlogHeader />
 
       <main className="container mx-auto px-4 py-8">
         {/* Back Button */}
@@ -174,41 +260,19 @@ export default async function PostPage({ params }: PostPageProps) {
           <CommentsSection postId={post.id} initialCommentsCount={post.commentsCount} />
         </article>
       </main>
-    </div>
+      </div>
+    </>
   )
 }
 
 export async function generateStaticParams() {
   // In a real app, you'd fetch all post slugs from your API
   return [
-    { slug: "building-scalable-react-applications-nextjs-15" },
-    { slug: "mastering-docker-modern-development-workflows" },
-    { slug: "advanced-typescript-patterns-code-quality" },
+    { slug: "when-faith-finds-a-canvas" },
+    { slug: "the-sacred-in-the-ordinary" },
+    { slug: "the-art-of-worship" },
+    { slug: "culture-without-wonder" },
+    { slug: "faith-in-a-skeptical-world" },
+    { slug: "intersection-faith-art-culture" },
   ]
-}
-
-export async function generateMetadata({ params }: PostPageProps) {
-  const post = await blogApi.getPost(params.slug)
-
-  if (!post) {
-    return {
-      title: "Post Not Found",
-    }
-  }
-
-  return {
-    title: `${post.title} | TechBlog`,
-    description: post.excerpt,
-    openGraph: {
-      title: post.title,
-      description: post.excerpt,
-      images: [post.featuredImage],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: post.title,
-      description: post.excerpt,
-      images: [post.featuredImage],
-    },
-  }
 }

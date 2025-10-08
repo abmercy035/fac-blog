@@ -9,8 +9,21 @@ import { Label } from "@/components/ui/label"
 import { Heart, Users, Shield, Lightbulb, MessageCircle, Clock } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Counselling Services | FAC",
-  description: "Faith-centered counselling services to help you navigate life's challenges with wisdom and grace.",
+  title: "Counselling Services",
+  description: "Faith-centered counselling services to help you navigate life's challenges with wisdom and grace. Professional guidance integrating biblical wisdom with compassionate listening.",
+  keywords: [
+    "faith counselling",
+    "Christian counselling",
+    "spiritual guidance",
+    "faith-based therapy",
+    "pastoral counselling",
+    "emotional healing",
+    "relationship counselling",
+  ],
+  openGraph: {
+    title: "Counselling Services | FAC",
+    description: "Faith-centered counselling services to help you navigate life's challenges with wisdom and grace.",
+  },
 }
 
 export default function CounsellingPage() {

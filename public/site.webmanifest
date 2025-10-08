@@ -1,0 +1,21 @@
+{
+  "name": "FAC - Faith, Art & Culture",
+  "short_name": "FAC",
+  "description": "A thoughtful space where faith, art, and culture converge",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fefae0",
+  "theme_color": "#bc6c25",
+  "icons": [
+    {
+      "src": "/placeholder-logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/placeholder-logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
