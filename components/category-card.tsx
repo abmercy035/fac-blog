@@ -20,16 +20,16 @@ export function CategoryCard({ category, postCount }: CategoryCardProps) {
           </div>
           <div className="flex-1">
             <Link href={`/categories/${category.slug}`}>
-              <h3 className="text-xl font-semibold text-foreground hover:text-primary transition-colors mb-2">
+              <h3 className="text-base md:text-xl font-semibold text-foreground hover:text-primary transition-colors mb-2">
                 {category.name}
               </h3>
             </Link>
-            <p className="text-muted-foreground text-pretty">{category.description}</p>
+            <p className="text-sm md:text-base text-muted-foreground text-pretty">{category.description}</p>
           </div>
         </div>
 
         {postCount !== undefined && (
-          <Badge variant="secondary" className="mb-4">
+          <Badge variant="secondary" className="text-xs md:text-base mb-4">
             {postCount} {postCount === 1 ? "post" : "posts"}
           </Badge>
         )}
@@ -37,7 +37,7 @@ export function CategoryCard({ category, postCount }: CategoryCardProps) {
 
       <CardFooter className="px-6 py-4 bg-muted/30">
         <Link href={`/categories/${category.slug}`} className="w-full">
-          <Button variant="outline" className="w-full bg-transparent">
+          <Button variant="outline" className="w-full bg-transparent text-xs md:text-base cursor-pointer">
             View Posts
             <ArrowRight className="h-4 w-4 ml-2" />
           </Button>

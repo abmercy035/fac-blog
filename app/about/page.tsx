@@ -30,40 +30,40 @@ export default function AboutPage() {
       <main className="container mx-auto px-4 py-12">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
-            <h1 className="text-5xl font-bold text-foreground mb-6 text-balance">About FAC</h1>
-            <p className="text-xl text-muted-foreground text-pretty max-w-3xl mx-auto leading-relaxed">
+            <h1 className="text-2xl md:text-5xl font-bold text-foreground mb-6 text-balance">About FAC</h1>
+            <p className="text-base md:text-xl text-muted-foreground text-pretty max-w-3xl mx-auto leading-relaxed">
               Faith, Art, and Culture (FAC) is a creative space where writing transcends mere words and becomes an exploration of the human soul. Through poetry, essays, and prose, FAC invites readers to experience the profound, often complex layers of life, faith, and society with honesty and artistry.
             </p>
           </div>
 
           <div className="space-y-12 mb-16">
             <section>
-              <h2 className="text-3xl font-bold text-foreground mb-6">Our Mission</h2>
-              <p className="text-lg text-muted-foreground leading-relaxed">
+              <h2 className="text-lg md:text-3xl font-bold text-foreground mb-6">Our Mission</h2>
+              <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
                FAC aims to engage minds and hearts by offering writing that challenges conventional views and gently reshapes understanding. This platform is dedicated to presenting artful, thoughtful work that illuminates the unseen and unspoken, providing new perspectives on the world around us.
               </p>
             </section>
 
             <section>
-              <h2 className="text-3xl font-bold text-foreground mb-6">What You'll Find Here</h2>
-              <p className="text-lg text-muted-foreground leading-relaxed">
+              <h2 className="text-lg md:text-3xl font-bold text-foreground mb-6">What You'll Find Here</h2>
+              <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
                 A collection of original poems, essays, and reflections that explore life’s depths — from the melancholic and introspective to the hopeful and transformative. The writing here seeks to evoke emotion, provoke thought, and foster a renewed appreciation for the art of language
               </p>
             </section>
           </div>
 
           <section className="mb-16">
-            <h2 className="text-3xl font-bold text-foreground mb-6">Themes We Explore</h2>
+            <h2 className="text-lg md:text-3xl font-bold text-foreground mb-6">Themes We Explore</h2>
             <div className="flex flex-wrap gap-3">
               {themes.map((theme) => (
-                <Badge key={theme} variant="secondary" className="text-base px-4 py-2">
+                <Badge key={theme} variant="secondary" className="text-xs md:text-base px-4 py-2">
                   {theme}
                 </Badge>
               ))}
             </div>
           </section>
 
-          <section className="text-center bg-secondary/30 py-12 px-8" style={{ borderRadius: '0.5rem' }}>
+          <section className="hidden text-center bg-secondary/30 py-12 px-8" style={{ borderRadius: '0.5rem' }}>
             <h2 className="text-3xl font-bold text-foreground mb-6">Lets connect</h2>
             <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
              Open to collaborations and new ideas.

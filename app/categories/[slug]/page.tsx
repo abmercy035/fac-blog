@@ -66,11 +66,11 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               </div>
             </div>
 
-            <h1 className="text-4xl font-bold text-foreground mb-4 text-balance">{category.name}</h1>
+            <h1 className="text-2xl md:text-4xl font-bold text-foreground mb-4 text-balance">{category.name}</h1>
 
-            <p className="text-xl text-muted-foreground mb-6 max-w-2xl mx-auto text-pretty">{category.description}</p>
+            <p className="text-base md:text-xl text-muted-foreground mb-6 max-w-2xl mx-auto text-pretty">{category.description}</p>
 
-            <Badge variant="secondary" className="text-base px-4 py-2">
+            <Badge variant="secondary" className="text-base px-4 py-2 text-xs md:text-base">
               {posts.length} {posts.length === 1 ? "article" : "articles"}
             </Badge>
           </div>

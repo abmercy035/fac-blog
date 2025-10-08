@@ -31,27 +31,27 @@ export function BlogPostCard({ post, featured = false }: BlogPostCardProps) {
 
         <CardContent className="p-6 pt-8 flex-grow flex flex-col">
           <div className="flex items-center space-x-6 text-lg text-muted-foreground mb-5 font-serif">
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2 md:text-base text-sm">
               <User className="h-5 w-5" />
               <span>{post.author.name}</span>
             </div>
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2 md:text-base text-sm">
               <Calendar className="h-5 w-5" />
               <span>{new Date(post.publishedAt).toLocaleDateString()}</span>
             </div>
           </div>
 
           <Link href={`/posts/${post.slug}`}>
-            <h3 className="text-5xl font-bold text-foreground mb-6 hover:text-primary transition-colors leading-tight">
+            <h3 className="md:text-5xl text-xl font-bold text-foreground mb-6 hover:text-primary transition-colors leading-tight">
               {post.title}
             </h3>
           </Link>
 
-          <p className="text-xl text-muted-foreground mb-6 leading-relaxed flex-grow">{post.excerpt}</p>
+          <p className="md:text-xl text-base text-muted-foreground mb-6 leading-relaxed flex-grow">{post.excerpt}</p>
 
           <div className="flex flex-wrap gap-3">
             {post.tags.slice(0, 3).map((tag) => (
-              <Badge key={tag} variant="outline" className="text-base py-1 px-3">
+              <Badge key={tag} variant="outline" className="md:text-base text-sm py-1 px-3">
                 {tag}
               </Badge>
             ))}
@@ -83,7 +83,7 @@ export function BlogPostCard({ post, featured = false }: BlogPostCardProps) {
   // Horizontal layout for non-featured cards
   return (
     <Card className="overflow-hidden shadow-none transition-all duration-300 bg-transparent border-0 h-full flex flex-row">
-      <div className="relative aspect-square w-2/5 flex-shrink-0">
+      <div className="relative aspect-square md:w-2/5 w-2/6 flex-shrink-0">
         <Image
           src={post.featuredImage || "/placeholder.svg"}
           alt={post.title}
@@ -97,20 +97,20 @@ export function BlogPostCard({ post, featured = false }: BlogPostCardProps) {
         </div> */}
       </div>
 
-      <CardContent className="p-5 flex-grow flex flex-col justify-between">
+      <CardContent className="md:p-5 p-2 flex-grow flex flex-col justify-between">
         <div>
           <Link href={`/posts/${post.slug}`}>
-            <h3 className="text-2xl font-bold text-foreground mb-3 hover:text-primary transition-colors line-clamp-2 leading-tight">
+            <h3 className="md:text-2xl text-lg font-bold text-foreground mb-3 hover:text-primary transition-colors line-clamp-2 leading-tight">
               {post.title}
             </h3>
           </Link>
 
-          <p className="text-muted-foreground text-base mb-4 line-clamp-2 leading-relaxed">{post.excerpt}</p>
+          <p className="text-muted-foreground text-sm mb-4 line-clamp-2 leading-relaxed">{post.excerpt}</p>
         </div>
 
         <div className="flex flex-wrap gap-2">
           {post.tags.slice(0, 3).map((tag) => (
-            <Badge key={tag} variant="outline" className="text-sm">
+            <Badge key={tag} variant="outline" className="md:text-sm text-xs">
               {tag}
             </Badge>
           ))}

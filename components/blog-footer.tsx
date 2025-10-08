@@ -10,10 +10,10 @@ export function BlogFooter() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Brand Section */}
           <div className="space-y-4">
-            <Link href="/" className="text-3xl font-bold">
+            <Link href="/" className="text-xl md:text-3xl font-bold">
               FAC
             </Link>
-            <p className="text-sm text-background/80">
+            <p className="text-xs md:text-sm text-background/80">
 Faith Meets Art, Redefining Culture
 
             </p>
@@ -32,7 +32,7 @@ Faith Meets Art, Redefining Culture
 
           {/* Categories */}
           <div>
-            <h3 className="font-bold text-lg mb-4">Categories</h3>
+            <h3 className="font-bold text-sm md:text-lg mb-4">Categories</h3>
             <ul className="space-y-2">
               {categories.map((category) => (
                 <li key={category.id}>
@@ -49,7 +49,7 @@ Faith Meets Art, Redefining Culture
 
           {/* Services */}
           <div>
-            <h3 className="font-bold text-lg mb-4">Services</h3>
+            <h3 className="font-bold ttext-sm md:ext-lg mb-4">Services</h3>
             <ul className="space-y-2">
               <li>
                 <Link 
@@ -80,7 +80,7 @@ Faith Meets Art, Redefining Culture
 
           {/* Quick Links */}
           <div>
-            <h3 className="font-bold text-lg mb-4">Quick Links</h3>
+            <h3 className="font-bold text-sm md:text-lg mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li>
                 <Link 
@@ -119,7 +119,7 @@ Faith Meets Art, Redefining Culture
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-background/20 mt-8 pt-8 text-center text-sm text-background/70">
+        <div className="border-t border-background/20 mt-8 pt-8 text-center text-xs md:text-sm text-background/70">
           <p>&copy; {currentYear} FAC - Faith, Art & Culture. All rights reserved.</p>
         </div>
       </div>

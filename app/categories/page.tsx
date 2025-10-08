@@ -23,8 +23,8 @@ export default async function CategoriesPage() {
       <main className="container mx-auto px-4 py-12">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-foreground mb-4 text-balance">Browse by Category</h1>
-            <p className="text-xl text-muted-foreground text-pretty">
+            <h1 className="text-2xl md:text-4xl font-bold text-foreground mb-4 text-balance">Browse by Category</h1>
+            <p className="text-base md:text-xl text-muted-foreground text-pretty">
               Explore articles organized by topics and technologies
             </p>
           </div>
