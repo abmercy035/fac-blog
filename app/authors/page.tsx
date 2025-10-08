@@ -29,7 +29,7 @@ export default async function AuthorsPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 gap-8">
             {authorsWithPostCounts.map((author) => (
               <AuthorCard key={author.id} author={author} postCount={author.postCount} />
             ))}

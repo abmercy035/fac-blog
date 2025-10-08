@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation"
 import Link from "next/link"
-import { ArrowLeft, Twitter, Github, Linkedin, Mail } from "lucide-react"
+import { ArrowLeft, Twitter, Github, Linkedin, Mail, Facebook } from "lucide-react"
 import { BlogHeader } from "@/components/blog-header"
 import { BlogPostCard } from "@/components/blog-post-card"
 import { Button } from "@/components/ui/button"
@@ -75,15 +75,15 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
                 </a>
               )}
 
-              {author.social.github && (
+              {author.social.facebook && (
                 <a
-                  href={`https://github.com/${author.social.github}`}
+                  href={`https://web.facebook.com/${author.social.facebook}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center space-x-2 text-muted-foreground hover:text-primary transition-colors"
                 >
-                  <Github className="h-4 w-4" />
-                  <span>GitHub</span>
+                  <Facebook className="h-4 w-4" />
+                  <span>Facebook</span>
                 </a>
               )}
 
