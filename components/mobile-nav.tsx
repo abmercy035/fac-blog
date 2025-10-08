@@ -20,23 +20,23 @@ export function MobileNav() {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" className="md:hidden">
-          <Menu className="h-5 w-5" />
+        <Button variant="ghost" size="icon" className="md:hidden cursor-pointer">
+          <Menu className="h-6 w-6" />
         </Button>
       </SheetTrigger>
-      <SheetContent side="right" className="w-80">
+      <SheetContent side="right" className="w-100">
         <SheetHeader>
           <SheetTitle>Navigation</SheetTitle>
         </SheetHeader>
 
-        <div className="mt-8 space-y-6">
+        <div className="mt-8 space-y-6 px-4 cursor-pointer">
           {/* Search */}
           <div>
             <h3 className="text-sm font-medium text-muted-foreground mb-3">Search</h3>
             <SearchDialog
               trigger={
                 <Button variant="outline" className="w-full justify-start bg-transparent">
-                  <Menu className="h-4 w-4 mr-2" />
+                  <Menu className="h-6 w-6 mr-2  cursor-pointer" />
                   Search posts...
                 </Button>
               }
