@@ -1,14 +1,15 @@
 export interface Author {
   id: string
   name: string
+  username: string
+  title: string
   bio: string
   email: string
   avatar: string
   social: {
-    twitter?: string
     linkedin?: string
     facebook?: string
-    instagram?: string
+    email?: string
   }
 }
 
@@ -60,7 +61,9 @@ export interface Subscriber {
 export const authors: Author[] = [
   {
     id: "1",
-    name: "Victory Atet (Writer | Creative Strategist)",
+    name: "Victory Atet",
+username: "victory-atet",
+    title: "Writer | Creative Strategist",
     bio: "A versatile writer and creative strategist whose work spans poetry, essays, editorial content, and cultural commentary. Her writing explores themes of faith, identity, human complexity, and societal views. Through thoughtful storytelling and strategic creativity, she crafts content that informs, inspires, and redefines perspectives.",
     email: "victoryatet@gmail.com",
     avatar: "/professional-woman-developer.png",
@@ -68,18 +71,7 @@ export const authors: Author[] = [
       facebook: "victory.atet",
       linkedin: "victory-atet-writes",
     }
-  },
-  {
-    id: "2",
-    name: "David Osei",
-    bio: "Theologian, musician, and cultural commentator passionate about creative spirituality",
-    email: "victoryatet@gmail.com",
-    avatar: "/professional-man-developer.png",
-    social: {
-      twitter: "@davidosei",
-      linkedin: "david-osei",
-    },
-  },
+  }
 ]
 
 export const categories: Category[] = [
@@ -150,7 +142,7 @@ We tend to think faith needs to be loud or miraculous, but most of the time it s
 So the next time you feel uninspired, don't wait for something grand. Look around you. Creation is still happening — and maybe your art is part of that ongoing miracle.`,
     excerpt:
       "I've stopped trying to find God only in church. I find Him in quiet cafes, in jazz improvisations, in old architecture that still holds its breath.",
-    author: authors[1],
+    author: authors[0],
     category: categories[0],
     tags: ["Faith", "Worship", "Beauty", "Creativity"],
     publishedAt: "2024-01-12T14:30:00Z",
@@ -228,7 +220,7 @@ We live in a skeptical age, but maybe that's okay. Doubt doesn't destroy faith �
 
 So if you find yourself doubting, don't see it as failure. See it as part of the creative process of faith. Even the best artists erase before they perfect.`,
     excerpt: "It's not easy to talk about faith in today's world. But faith isn't about proving anything — it's about perceiving meaning in what others overlook.",
-    author: authors[1],
+    author: authors[0],
     category: categories[1],
     tags: ["Faith", "Doubt", "Modern Thought", "Spirituality"],
     publishedAt: "2024-01-08T11:00:00Z",

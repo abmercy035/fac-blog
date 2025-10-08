@@ -29,10 +29,10 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
       <main className="container mx-auto px-4 py-8">
         {/* Back Button */}
         <div className="mb-8">
-          <Link href="/authors">
+          <Link href="/">
             <Button variant="ghost" size="sm">
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Authors
+              Back to Home
             </Button>
           </Link>
         </div>
@@ -40,7 +40,7 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
         <div className="max-w-4xl mx-auto">
           {/* Author Profile */}
           <div className="text-center mb-12">
-            <Avatar className="h-32 w-32 mx-auto mb-6">
+            <Avatar className="h-62 w-62 mx-auto mb-6">
               <AvatarImage src={author.avatar || "/placeholder.svg"} alt={author.name} />
               <AvatarFallback className="text-2xl">
                 {author.name
@@ -62,18 +62,6 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
                 <Mail className="h-4 w-4" />
                 <span>Email</span>
               </a>
-
-              {author.social.twitter && (
-                <a
-                  href={`https://twitter.com/${author.social.twitter.replace("@", "")}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center space-x-2 text-muted-foreground hover:text-primary transition-colors"
-                >
-                  <Twitter className="h-4 w-4" />
-                  <span>Twitter</span>
-                </a>
-              )}
 
               {author.social.facebook && (
                 <a
@@ -144,7 +132,7 @@ export async function generateMetadata({ params }: AuthorPageProps) {
   }
 
   return {
-    title: `${author.name} | TechBlog Authors`,
+    title: `${author.name} | FAC Author`,
     description: author.bio,
   }
 }

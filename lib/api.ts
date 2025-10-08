@@ -41,7 +41,7 @@ export const blogApi = {
 
   async getPostsByAuthor(authorId: string): Promise<BlogPost[]> {
     await delay(300)
-    return blogPosts.filter((post) => post.author.id === authorId)
+    return blogPosts.filter((post) => post.author.username === authorId)
   },
 
   async searchPosts(query: string): Promise<BlogPost[]> {
@@ -100,14 +100,14 @@ export const blogApi = {
 
   async getAuthor(id: string): Promise<Author | null> {
     await delay(200)
-    return authors.find((author) => author.id === id) || null
+    return authors.find((author) => author.username === id) || null
   },
 
   // Categories
   async getCategories(): Promise<Category[]> {
     await delay(200)
     return categories
-  },
+},
 
   async getCategory(slug: string): Promise<Category | null> {
     await delay(200)

@@ -27,13 +27,9 @@ export const siteConfig = {
 	],
 	authors: [
 		{
-			name: "Grace Amara",
-			url: "https://fac-blog.vercel.app/authors/grace-amara",
-		},
-		{
-			name: "David Osei",
-			url: "https://fac-blog.vercel.app/authors/david-osei",
-		},
+			name: "Victory Atet",
+			url: "https://fac-blog.vercel.app/author/victory-atet",
+		}
 	],
 	openGraph: {
 		type: "website",

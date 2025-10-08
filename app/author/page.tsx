@@ -8,7 +8,7 @@ export default async function AuthorsPage() {
   // Get post counts for each author
   const authorsWithPostCounts = await Promise.all(
     authors.map(async (author) => {
-      const posts = await blogApi.getPostsByAuthor(author.id)
+      const posts = await blogApi.getPostsByAuthor(author.username)
       return {
         ...author,
         postCount: posts.length,
@@ -23,9 +23,9 @@ export default async function AuthorsPage() {
       <main className="container mx-auto px-4 py-12">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-foreground mb-4 text-balance">Meet Our Authors</h1>
+            <h1 className="text-4xl font-bold text-foreground mb-4 text-balance">Meet The Author</h1>
             <p className="text-xl text-muted-foreground text-pretty">
-              Talented writers and developers sharing their expertise and insights
+              Talented writer sharing her expertise and insights
             </p>
           </div>
 
@@ -41,6 +41,6 @@ export default async function AuthorsPage() {
 }
 
 export const metadata = {
-  title: "Authors | TechBlog",
-  description: "Meet the talented authors behind TechBlog's insightful articles",
+  title: "Author | FAC",
+  description: "Meet the talented author behind FAC's insightful articles",
 }

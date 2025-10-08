@@ -33,7 +33,7 @@
 
 ### 3. Sitemap (`app/sitemap.ts`)
 ✅ Dynamic XML sitemap including:
-- Static pages (Home, About, Categories, Authors, Search)
+- Static pages (Home, About, Categories, Author, Search)
 - Service pages (Counselling, Writing)
 - All published blog posts
 - All category pages

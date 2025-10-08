@@ -40,14 +40,14 @@ export default function AboutPage() {
             <section>
               <h2 className="text-3xl font-bold text-foreground mb-6">Our Mission</h2>
               <p className="text-lg text-muted-foreground leading-relaxed">
-               Faith, Art, and Culture (FAC) is a creative space where writing transcends mere words and becomes an exploration of the human soul. Through poetry, essays, and prose, FAC invites readers to experience the profound, often complex layers of life, faith, and society with honesty and artistry.
+               FAC aims to engage minds and hearts by offering writing that challenges conventional views and gently reshapes understanding. This platform is dedicated to presenting artful, thoughtful work that illuminates the unseen and unspoken, providing new perspectives on the world around us.
               </p>
             </section>
 
             <section>
               <h2 className="text-3xl font-bold text-foreground mb-6">What You'll Find Here</h2>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                Faith, Art, and Culture (FAC) is a creative space where writing transcends mere words and becomes an exploration of the human soul. Through poetry, essays, and prose, FAC invites readers to experience the profound, often complex layers of life, faith, and society with honesty and artistry.
+                A collection of original poems, essays, and reflections that explore life’s depths — from the melancholic and introspective to the hopeful and transformative. The writing here seeks to evoke emotion, provoke thought, and foster a renewed appreciation for the art of language
               </p>
             </section>
           </div>

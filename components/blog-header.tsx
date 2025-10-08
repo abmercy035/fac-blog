@@ -20,16 +20,13 @@ export function BlogHeader() {
 
   const navItems = [
     { href: "/", label: "Home" },
-    { href: "/authors", label: "Authors" },
-  ]
-  const navItemsEnd = [
-    { href: "/services", label: "My Services" },
     { href: "/about", label: "About" },
   ]
-  // const services = [
-  //   { href: "/services/writing-&-content-creation", label: "Writing & Content Creation" },
-  //   { href: "/services/Editorial-&-Proofreading", label: "Editorial & Proofreading" },
-  // ]
+  const navItemsEnd = [
+    { href: "/author/victory-atet", label: "Author" },
+    { href: "/services", label: "Services" },
+  ]
+  
 
   return (
     <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
@@ -37,7 +34,7 @@ export function BlogHeader() {
         <div className="flex items-center justify-between">
           <Link href="/" className="text-3xl font-bold text-foreground mr-8 flex flex-col">
             FAC
-            <i className="text-xs"> Faith Meets Art, Redefining Culture.</i>
+            <i className="text-xs text-muted-foreground"> Faith Meets Art, Redefining Culture.</i>
           </Link>
 
           <nav className="hidden md:flex items-center space-x-8 max-lg:space-x-2">

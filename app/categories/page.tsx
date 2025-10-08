@@ -41,6 +41,6 @@ export default async function CategoriesPage() {
 }
 
 export const metadata = {
-  title: "Categories | TechBlog",
+  title: "Categories | FAC",
   description: "Browse articles by category - Frontend, Backend, DevOps and more",
 }

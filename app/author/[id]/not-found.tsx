@@ -12,8 +12,8 @@ export default function NotFound() {
         <p className="text-muted-foreground mb-8 max-w-md mx-auto">
           The author you're looking for doesn't exist or has been removed.
         </p>
-        <Link href="/authors">
-          <Button size="lg">Back to Authors</Button>
+        <Link href="/author/victory-atet">
+          <Button size="lg">Back to Author</Button>
         </Link>
       </div>
     </div>

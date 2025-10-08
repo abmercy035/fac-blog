@@ -21,7 +21,7 @@ export const users: User[] = [
   {
     id: "1",
     username: "admin",
-    email: "admin@techblog.com",
+    email: "admin@fac.com",
     role: "admin",
     name: "Admin User",
     avatar: "/professional-woman-developer.png",
@@ -31,7 +31,7 @@ export const users: User[] = [
   {
     id: "2",
     username: "editor1",
-    email: "editor@techblog.com",
+    email: "editor@fac.com",
     role: "editor",
     name: "John Editor",
     avatar: "/professional-man-developer.png",

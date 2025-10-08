@@ -13,7 +13,7 @@ export function MobileNav() {
   const navItems = [
     { href: "/", label: "Home", icon: Home },
     { href: "/categories", label: "Categories", icon: Folder },
-    { href: "/authors", label: "Authors", icon: Users },
+    { href: "/author/victory-atet", label: "Author", icon: Users },
     { href: "/about", label: "About", icon: Info },
   ]
 

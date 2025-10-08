@@ -89,7 +89,7 @@ export default async function PostPage({ params }: PostPageProps) {
     author: {
       "@type": "Person",
       name: post.author.name,
-      url: `${siteConfig.url}/authors/${post.author.id}`,
+      url: `${siteConfig.url}/author/${post.author.id}`,
     },
     publisher: {
       "@type": "Organization",
@@ -163,7 +163,7 @@ export default async function PostPage({ params }: PostPageProps) {
                   </AvatarFallback>
                 </Avatar>
                 <div>
-                  <Link href={`/authors/${post.author.id}`}>
+                  <Link href={`/author/${post.author.username}`}>
                     <h3 className="font-semibold text-foreground hover:text-primary transition-colors">
                       {post.author.name}
                     </h3>
@@ -221,16 +221,7 @@ export default async function PostPage({ params }: PostPageProps) {
                   <h3 className="text-xl font-semibold text-foreground mb-2">About {post.author.name}</h3>
                   <p className="text-muted-foreground mb-4 text-pretty">{post.author.bio}</p>
                   <div className="flex space-x-4">
-                    {post.author.social.twitter && (
-                      <a
-                        href={`https://twitter.com/${post.author.social.twitter}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-primary hover:underline"
-                      >
-                        Twitter
-                      </a>
-                    )}
+               
                     {post.author.social.facebook && (
                       <a
                         href={`https://facebook.com/${post.author.social.facebook}`}

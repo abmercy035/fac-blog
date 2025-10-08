@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Facebook, Twitter, Instagram, Mail } from "lucide-react"
+import { Facebook, Twitter, Instagram, Mail, Linkedin } from "lucide-react"
 import { categories } from "@/lib/blog-data"
 
 export function BlogFooter() {
@@ -14,20 +14,17 @@ export function BlogFooter() {
               FAC
             </Link>
             <p className="text-sm text-background/80">
-Faith Meets Art, Rredefining Culture
+Faith Meets Art, Redefining Culture
 
             </p>
             <div className="flex space-x-4 pt-2">
-              <a href="#" className="hover:text-primary transition-colors" aria-label="Facebook">
+              <a href="https://web.facebook.com/victory.atet" className="hover:text-primary transition-colors" aria-label="Facebook">
                 <Facebook className="h-5 w-5" />
               </a>
-              <a href="#" className="hover:text-primary transition-colors" aria-label="Twitter">
-                <Twitter className="h-5 w-5" />
+              <a href="https://www.linkedin.com/in/victory-atet-writes" className="hover:text-primary transition-colors" aria-label="Linkedin">
+                <Linkedin className="h-5 w-5" />
               </a>
-              <a href="#" className="hover:text-primary transition-colors" aria-label="Instagram">
-                <Instagram className="h-5 w-5" />
-              </a>
-              <a href="#" className="hover:text-primary transition-colors" aria-label="Email">
+              <a href="mailto:victoryatet@gmail.com" className="hover:text-primary transition-colors" aria-label="Email">
                 <Mail className="h-5 w-5" />
               </a>
             </div>
@@ -56,18 +53,26 @@ Faith Meets Art, Rredefining Culture
             <ul className="space-y-2">
               <li>
                 <Link 
-                  href="/services/counselling"
+                  href="/services"
                   className="text-sm text-background/80 hover:text-primary transition-colors"
                 >
-                  Counselling
+                  Writing & Content Creation
                 </Link>
               </li>
               <li>
                 <Link 
-                  href="/services/writing"
+                  href="/services"
                   className="text-sm text-background/80 hover:text-primary transition-colors"
                 >
-                  Writing
+                  Editorial & Proofreading
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  href="/services"
+                  className="text-sm text-background/80 hover:text-primary transition-colors"
+                >
+                  Creative Strategy Consulting
                 </Link>
               </li>
             </ul>
@@ -95,10 +100,10 @@ Faith Meets Art, Rredefining Culture
               </li>
               <li>
                 <Link 
-                  href="/authors"
+                  href="/author/victory-atet"
                   className="text-sm text-background/80 hover:text-primary transition-colors"
                 >
-                  Authors
+                  Author
                 </Link>
               </li>
               <li>
