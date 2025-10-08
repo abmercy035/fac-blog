@@ -21,13 +21,15 @@ export function BlogHeader() {
   const navItems = [
     { href: "/", label: "Home" },
     { href: "/authors", label: "Authors" },
+  ]
+  const navItemsEnd = [
+    { href: "/services", label: "My Services" },
     { href: "/about", label: "About" },
   ]
-
-  const services = [
-    { href: "/services/counselling", label: "Counselling" },
-    { href: "/services/writing", label: "Writing" },
-  ]
+  // const services = [
+  //   { href: "/services/writing-&-content-creation", label: "Writing & Content Creation" },
+  //   { href: "/services/Editorial-&-Proofreading", label: "Editorial & Proofreading" },
+  // ]
 
   return (
     <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
@@ -50,8 +52,7 @@ export function BlogHeader() {
                 {item.label}
               </Link>
             ))}
-
-            {/* Categories Dropdown */}
+                {/* Categories Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger className={cn(
                 "flex items-center gap-1 transition-colors outline-none cursor-pointer",
@@ -69,27 +70,22 @@ export function BlogHeader() {
                 ))}
               </DropdownMenuContent>
             </DropdownMenu>
+            {navItemsEnd.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  "transition-colors",
+                  pathname === item.href ? "text-primary font-medium" : "text-muted-foreground hover:text-primary",
+                )}
+              >
+                {item.label}
+              </Link>
+            ))}
 
-            {/* Services Dropdown */}
-            <DropdownMenu>
-              <DropdownMenuTrigger className={cn(
-                "flex items-center gap-1 transition-colors outline-none cursor-pointer",
-                pathname.startsWith("/services") ? "text-primary font-medium" : "text-muted-foreground hover:text-primary"
-              )}>
-                Services <ChevronDown className="h-4 w-4" />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-56">
-                {services.map((service) => (
-                  <DropdownMenuItem key={service.href} asChild>
-                    <Link href={service.href} className="cursor-pointer">
-                      {service.label}
-                    </Link>
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
+        
           </nav>
-
+ 
           <div className="ml-8 flex items-center space-x-4">
             {/* Desktop Search */}
             <div className="hidden sm:block">

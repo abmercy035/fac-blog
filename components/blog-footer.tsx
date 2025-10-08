@@ -4,7 +4,6 @@ import { categories } from "@/lib/blog-data"
 
 export function BlogFooter() {
   const currentYear = new Date().getFullYear()
-
   return (
     <footer className="bg-foreground text-background border-t border-border mt-16">
       <div className="container mx-auto px-4 py-12">

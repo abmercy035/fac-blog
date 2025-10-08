@@ -231,14 +231,14 @@ export default async function PostPage({ params }: PostPageProps) {
                         Twitter
                       </a>
                     )}
-                    {post.author.social.github && (
+                    {post.author.social.facebook && (
                       <a
-                        href={`https://github.com/${post.author.social.github}`}
+                        href={`https://facebook.com/${post.author.social.facebook}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-primary hover:underline"
                       >
-                        GitHub
+                        Facebook
                       </a>
                     )}
                     {post.author.social.linkedin && (

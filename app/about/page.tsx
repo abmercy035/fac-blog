@@ -16,13 +16,11 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   const themes = [
-    "Faith and Creativity",
-    "Art as Expression",
-    "Culture and Influence",
-    "Storytelling and Symbolism",
-    "Music, Film & Literature",
-    "History and Modern Thought",
-    "Society and Spirituality",
+    "Human Complexity",
+    "Soulful Expression",
+    "Faith & Society",
+    "History & Culture",
+    "Power & Influence",
   ]
 
   return (
@@ -34,7 +32,7 @@ export default function AboutPage() {
           <div className="text-center mb-16">
             <h1 className="text-5xl font-bold text-foreground mb-6 text-balance">About FAC</h1>
             <p className="text-xl text-muted-foreground text-pretty max-w-3xl mx-auto leading-relaxed">
-              A thoughtful space where faith, art, and culture converge. FAC explores how belief shapes creativity and how art, in turn, influences the way we live, think, and express our values.
+              Faith, Art, and Culture (FAC) is a creative space where writing transcends mere words and becomes an exploration of the human soul. Through poetry, essays, and prose, FAC invites readers to experience the profound, often complex layers of life, faith, and society with honesty and artistry.
             </p>
           </div>
 
@@ -42,14 +40,14 @@ export default function AboutPage() {
             <section>
               <h2 className="text-3xl font-bold text-foreground mb-6">Our Mission</h2>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                We exist to bridge the gap between spirituality and creativity — to inspire deeper reflection on how faith informs art, and how art redefines culture. Our goal is to foster conversations that challenge norms, awaken creativity, and elevate cultural understanding.
+               Faith, Art, and Culture (FAC) is a creative space where writing transcends mere words and becomes an exploration of the human soul. Through poetry, essays, and prose, FAC invites readers to experience the profound, often complex layers of life, faith, and society with honesty and artistry.
               </p>
             </section>
 
             <section>
-              <h2 className="text-3xl font-bold text-foreground mb-6">What We Cover</h2>
+              <h2 className="text-3xl font-bold text-foreground mb-6">What You'll Find Here</h2>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                From visual arts and music to film, literature, and design — FAC examines how these creative expressions intersect with faith, values, and cultural evolution. Each article invites readers to see beyond the surface and engage with meaning, purpose, and beauty.
+                Faith, Art, and Culture (FAC) is a creative space where writing transcends mere words and becomes an exploration of the human soul. Through poetry, essays, and prose, FAC invites readers to experience the profound, often complex layers of life, faith, and society with honesty and artistry.
               </p>
             </section>
           </div>
@@ -66,28 +64,28 @@ export default function AboutPage() {
           </section>
 
           <section className="text-center bg-secondary/30 py-12 px-8" style={{ borderRadius: '0.5rem' }}>
-            <h2 className="text-3xl font-bold text-foreground mb-6">Join Our Community</h2>
+            <h2 className="text-3xl font-bold text-foreground mb-6">Lets connect</h2>
             <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
-              Your voice matters. Share your thoughts, contribute your art, or join the discussion as we explore the intersection of faith, art, and culture together. Follow us on social media or reach out to collaborate.
+             Open to collaborations and new ideas.
             </p>
             <div className="flex justify-center space-x-8">
               <a
-                href="https://twitter.com/facblog"
+                href="https://web.facebook.com/victory.atet"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-foreground hover:text-primary transition-colors text-lg font-semibold"
               >
-                Twitter
+                Facebook
               </a>
               <a
-                href="https://instagram.com/facblog"
+                href="https://www.linkedin.com/in/victory-atet-writes"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-foreground hover:text-primary transition-colors text-lg font-semibold"
               >
-                Instagram
+                LinkedIn
               </a>
-              <a href="mailto:hello@facblog.com" className="text-foreground hover:text-primary transition-colors text-lg font-semibold">
+              <a href="mailto:victoryatet@gmail.com" className="text-foreground hover:text-primary transition-colors text-lg font-semibold">
                 Email
               </a>
             </div>

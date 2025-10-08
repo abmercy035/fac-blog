@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { User, Twitter, Github, Linkedin } from "lucide-react"
+import { User, Twitter, Linkedin, Facebook, Instagram } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import type { Author } from "@/lib/blog-data"
@@ -23,15 +23,15 @@ export function AuthorCard({ author, postCount }: AuthorCardProps) {
 
           <div className="flex-1">
             <Link href={`/authors/${author.id}`}>
-              <h3 className="text-xl font-semibold text-foreground hover:text-primary transition-colors mb-2">
+              <h3 className="text-2xl font-semibold text-foreground hover:text-primary transition-colors mb-2">
                 {author.name}
               </h3>
             </Link>
 
-            <p className="text-muted-foreground mb-4 text-pretty">{author.bio}</p>
+            <p className="text-muted-foreground mb-4 tet-lg text-pretty">{author.bio}</p>
 
             {postCount !== undefined && (
-              <p className="text-sm text-muted-foreground mb-4">
+              <p className="text-md text-muted-foreground mb-4">
                 {postCount} {postCount === 1 ? "post" : "posts"} published
               </p>
             )}
@@ -42,19 +42,26 @@ export function AuthorCard({ author, postCount }: AuthorCardProps) {
                   href={`https://twitter.com/${author.social.twitter.replace("@", "")}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                >
-                  <Twitter className="h-4 w-4" />
+                  className="text-muted-foreground hover:text-primary transition-colors">
+                  <Twitter className="h-6 w-6" />
                 </a>
               )}
-              {author.social.github && (
+              {author.social.facebook && (
                 <a
-                  href={`https://github.com/${author.social.github}`}
+                  href={`https://web.facebook.com/${author.social.facebook}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                >
-                  <Github className="h-4 w-4" />
+                  className="text-muted-foreground hover:text-primary transition-colors">
+                  <Facebook className="h-6 w-6" />
+                </a>
+              )}
+              {author.social.instagram && (
+                <a
+                  href={`https://www.instagram.com/${author.social.instagram}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-primary transition-colors">
+                  <Instagram className="h-6 w-6" />
                 </a>
               )}
               {author.social.linkedin && (
@@ -62,9 +69,8 @@ export function AuthorCard({ author, postCount }: AuthorCardProps) {
                   href={`https://linkedin.com/in/${author.social.linkedin}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                >
-                  <Linkedin className="h-4 w-4" />
+                  className="text-muted-foreground hover:text-primary transition-colors">
+                  <Linkedin className="h-6 w-6" />
                 </a>
               )}
             </div>

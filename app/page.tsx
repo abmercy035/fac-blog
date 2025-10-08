@@ -48,14 +48,36 @@ export default function HomePage() {
 
       <main className="container mx-auto px-4 py-12">
         {/* Hero Section */}
-        <section className="text-center mb-12">
-          <h1 className="text-5xl font-bold text-foreground mb-6 text-balance">Faith, Art and Culture</h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto text-pretty leading-relaxed">
-Faith Meets Art, Rredefining Culture </p>
+        <section className="text-center mb-16">
+          <h1 className="text-5xl font-bold text-foreground mb-12 text-balance">Faith, Art and Culture</h1>
+          
+          {/* Welcome Message */}
+          <div className="max-w-6xl mx-auto space-y-6 text-left">
+            <p className="text-lg text-foreground leading-relaxed">
+              Welcome to Faith, Art, and Culture (FAC) — a blog where ideas, convictions, and creativity meet.  
+              This space was born out of the need to speak not just from inspiration but with intention.
+            </p>
+
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              In a world shaped by noise, I believe in the quiet power of thoughtful writing. Here, you will find 
+              poetry that speaks to the soul, essays that ask necessary questions, and reflections that wrestle with 
+              faith, identity, and cultural norms.
+            </p>
+
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              FAC is more than a platform. It's a perspective that values clarity over confusion, insight over 
+              impression, and truth over trend.
+            </p>
+
+            <p className="text-lg text-muted-foreground leading-relaxed italic">
+              Whether you're here to read, reflect, or rethink, I hope these words find you where you are, 
+              and maybe help move you a little further.
+            </p>
+          </div>
         </section>
 
         {/* Subscribe Section */}
-        <section className="max-w-xl mx-auto mb-16">
+        <section className="max-w-4xl mx-auto mb-16">
           <form className="flex gap-3" onSubmit={(e) => e.preventDefault()}>
             <input
               type="email"
