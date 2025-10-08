@@ -51,7 +51,7 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
               </AvatarFallback>
             </Avatar>
 
-            <h1 className="md:text-3xl text-xl font-bold text-foreground mb-4 text-balance">{author.name}</h1>
+            <h1 className="md:text-3xl text-xl font-bold uppercase text-foreground mb-4 text-balance">{author.name}</h1>
             <div className="md:text-base text-sm uppercase text-primary mb-4 text-balance">{author.title}</div>
 
             <p className="md:text-lg text-sm text-muted-foreground mb-6 max-w-2xl mx-auto text-pretty">{author.bio}</p>
