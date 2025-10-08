@@ -5,8 +5,8 @@
 
 :root {
   /* Natural earthy theme - Cornslik, Fawn, Liver, Dark Olive, Kombu Green */
-    /* --background: #fefae0; */
-    /* --background: #fff;
+    --background: #fefae0;
+    /* --background: #fff; */
     --foreground: #283618;
     --card: #fefae0;
     --card-foreground: #283618;
@@ -38,7 +38,7 @@
     --sidebar-accent: #606c38;
     --sidebar-accent-foreground: #fefae0;
     --sidebar-border: #606c38;
-    --sidebar-ring: #bc6c25; */
+    --sidebar-ring: #bc6c25;
 }
 
 
