@@ -6,7 +6,6 @@ export const blogApi = {
   async getPosts(page = 1, limit = 10): Promise<{ posts: BlogPost[]; total: number; pages: number }> {
     try {
       const response = await apiClient.get(`/posts?page=${page}&limit=${limit}`)
-      console.log(response)
       return response.data
     } catch (error: any) {
       throw new Error(error.response?.data?.message || "Failed to fetch posts")
@@ -33,18 +32,18 @@ export const blogApi = {
     }
   },
 
-  async getPostsByCategory(categorySlug: string): Promise<BlogPost[]> {
+  async getPostsByCategory(categorySlug: string, page = 1, limit = 10): Promise<{ posts: BlogPost[]; total: number; page: number; pages: number }> {
     try {
-      const response = await apiClient.get(`/posts/category/${categorySlug}`)
+      const response = await apiClient.get(`/posts/category/${categorySlug}?page=${page}&limit=${limit}`)
       return response.data
     } catch (error: any) {
       throw new Error(error.response?.data?.message || "Failed to fetch posts by category")
     }
   },
 
-  async getPostsByAuthor(authorId: string): Promise<BlogPost[]> {
+  async getPostsByAuthor(authorId: string, page = 1, limit = 10): Promise<{ posts: BlogPost[]; total: number; page: number; pages: number }> {
     try {
-      const response = await apiClient.get(`/posts/author/${authorId}`)
+      const response = await apiClient.get(`/posts/author/${authorId}?page=${page}&limit=${limit}`)
       return response.data
     } catch (error: any) {
       throw new Error(error.response?.data?.message || "Failed to fetch posts by author")

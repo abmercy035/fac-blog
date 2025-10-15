@@ -9,6 +9,10 @@ import { Button } from "../../../components/ui/button"
 import { Badge } from "../../../components/ui/badge"
 import { BlogPostCard } from "../../../components/blog-post-card"
 
+interface CategoryPageServerProps {
+  params: { slug: string },
+  searchParams?: { page?: string }
+}
 
 interface CategoryPageProps {
   params: {
@@ -16,18 +20,20 @@ interface CategoryPageProps {
   }
 }
 
-export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
+export async function generateMetadata({ params, searchParams }: CategoryPageServerProps): Promise<Metadata> {
   const category = await blogApi.getCategory(params.slug)
   if (!category) {
     return {}
   }
+  const pageNum = searchParams?.page ? parseInt(searchParams.page) : 1;
+  const pageSuffix = pageNum > 1 ? ` | Page ${pageNum}` : "";
   return {
-    title: category.name,
-    description: category.description,
+    title: `${category.name}${pageSuffix}`,
+    description: `${category.description}${pageNum > 1 ? ` (Page ${pageNum})` : ""}`,
     openGraph: {
-      title: `${category.name} | FAC Categories`,
-      description: category.description,
-      url: `${siteConfig.url}/categories/${category.slug}`,
+      title: `${category.name}${pageSuffix} | FAC Categories`,
+      description: `${category.description}${pageNum > 1 ? ` (Page ${pageNum})` : ""}`,
+      url: `${siteConfig.url}/categories/${category.slug}${pageNum > 1 ? `?page=${pageNum}` : ""}`,
     },
   }
 }
@@ -38,7 +44,8 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   if (!category) {
     notFound()
   }
-  const posts = await blogApi.getPostsByCategory(params.slug)
+  // Get paginated posts
+  const { posts, total, page, pages } = await blogApi.getPostsByCategory(params.slug, 1, 10)
   return (
     <div className="min-h-screen bg-background">
       <BlogHeader />
@@ -61,7 +68,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             <h1 className="text-2xl md:text-4xl font-bold text-foreground mb-4 text-balance">{category.name}</h1>
             <p className="text-base md:text-xl text-muted-foreground mb-6 max-w-2xl mx-auto text-pretty">{category.description}</p>
             <Badge variant="secondary" className="text-base px-4 py-2 text-xs md:text-base">
-              {posts.length} {posts.length === 1 ? "article" : "articles"}
+              {total} {total === 1 ? "article" : "articles"}
             </Badge>
           </div>
           <section>
@@ -77,6 +84,15 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               </div>
             )}
           </section>
+          <div className="flex justify-center gap-4 mt-8">
+    <Link href={`/categories/${params.slug}?page=${page - 1}`}>
+      <Button disabled={page <= 1}>Previous</Button>
+    </Link>
+    <span>Page {page} of {pages}</span>
+    <Link href={`/categories/${params.slug}?page=${page + 1}`}>
+      <Button disabled={page >= pages}>Next</Button>
+    </Link>
+  </div>
         </div>
       </main>
     </div>
