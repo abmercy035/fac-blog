@@ -16,7 +16,6 @@ interface AuthorPageProps {
 
 export default async function AuthorPage({ params }: AuthorPageProps) {
   const author = await blogApi.getAuthor(params.id)
-console.log(author)
   if (!author) {
     notFound()
   }
