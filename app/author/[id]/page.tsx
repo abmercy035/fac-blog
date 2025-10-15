@@ -118,11 +118,23 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
             <h2 className="md:text-3xl text-xl font-semibold text-foreground mb-8">Articles by {author.name}</h2>
 
             {posts.length > 0 ? (
+              <>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                 {posts.map((post) => (
                   <BlogPostCard key={post.id} post={post} />
                 ))}
               </div>
+
+                 <div className="flex justify-center gap-4 mt-8">
+                  <Link href={`/author/${params.id}?page=${page - 1}`}>
+                    <Button disabled={page <= 1}>Previous</Button>
+                  </Link>
+                  <span>Page {page} of {pages}</span>
+                  <Link href={`/author/${params.id}?page=${page + 1}`}>
+                    <Button disabled={page >= pages}>Next</Button>
+                  </Link>
+                </div>
+              </>
             ) : (
               <div className="text-center py-12">
                 <p className="text-muted-foreground md:text-lg text-sm">No articles published yet.</p>
