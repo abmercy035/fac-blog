@@ -8,24 +8,18 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { blogApi } from "@/lib/api"
 import { Card, CardContent } from "@/components/ui/card"
 
-interface AuthorPageServerProps {
-  params: { id: string },
-  searchParams?: { page?: string }
-}
 interface AuthorPageProps {
   params: {
     id: string
   }
 }
 
-export default async function AuthorPage({ params, searchParams }: AuthorPageServerProps) {
-  const pageNum = searchParams?.page ? parseInt(searchParams.page) : 1;
+export default async function AuthorPage({ params }: AuthorPageProps) {
   const author = await blogApi.getAuthor(params.id)
   if (!author) {
     notFound()
   }
-  // Get paginated posts
-  const { posts, total, page, pages } = await blogApi.getPostsByAuthor(params.id, pageNum, 10)
+  const { posts, total, page, pages } = await blogApi.getPostsByAuthor(params.id, 1, 10)
 
   return (
     <div className="min-h-screen bg-background">
@@ -123,23 +117,12 @@ export default async function AuthorPage({ params, searchParams }: AuthorPageSer
           <section>
             <h2 className="md:text-3xl text-xl font-semibold text-foreground mb-8">Articles by {author.name}</h2>
 
-            {posts?.length > 0 ? (
-              <>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                  {posts.map((post) => (
-                    <BlogPostCard key={post.id} post={post} />
-                  ))}
-                </div>
-                <div className="flex justify-center gap-4 mt-8">
-                  <Link href={`/author/${params.id}?page=${page - 1}`}>
-                    <Button disabled={page <= 1}>Previous</Button>
-                  </Link>
-                  <span>Page {page} of {pages}</span>
-                  <Link href={`/author/${params.id}?page=${page + 1}`}>
-                    <Button disabled={page >= pages}>Next</Button>
-                  </Link>
-                </div>
-              </>
+            {posts.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                {posts.map((post) => (
+                  <BlogPostCard key={post.id} post={post} />
+                ))}
+              </div>
             ) : (
               <div className="text-center py-12">
                 <p className="text-muted-foreground md:text-lg text-sm">No articles published yet.</p>
