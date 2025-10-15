@@ -6,6 +6,8 @@ export const blogApi = {
   async getPosts(page = 1, limit = 10): Promise<{ posts: BlogPost[]; total: number; pages: number }> {
     try {
       const response = await apiClient.get(`/posts?page=${page}&limit=${limit}`)
+      console.log(response.data)
+
       return response.data
     } catch (error: any) {
       throw new Error(error.response?.data?.message || "Failed to fetch posts")

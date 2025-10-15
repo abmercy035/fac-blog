@@ -14,7 +14,7 @@ interface BlogPostCardProps {
 export function BlogPostCard({ post, featured = false }: BlogPostCardProps) {
   if (featured) {
     return (
-      <Card className="overflow-hidde shadow-none transition-all duration-300 bg-transparent border-0 h-full flex flex-col gap-0!">
+      <Card className="shadow-none transition-all duration-300 bg-transparent border-0 h-full flex flex-col gap-0!">
         <div className="relative w-full h-[40%] min-h-[250px] overflow-hidden flex-shrink-0">
           <Image
             src={post.featuredImage || "/placeholder.svg"}

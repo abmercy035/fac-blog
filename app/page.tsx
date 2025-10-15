@@ -18,10 +18,14 @@ export default function HomePage() {
   const [subscriptionMessage, setSubscriptionMessage] = useState("")
 
   useEffect(() => {
+    console.log("loading post")
+
     loadPosts()
   }, [])
 
   const loadPosts = async () => {
+    console.log("loading post called")
+
     try {
       setLoading(true)
       const { posts: newPosts, total } = await blogApi.getPosts(page, 6)
@@ -163,7 +167,9 @@ export default function HomePage() {
           ) : (
             <>
               {/* Featured Section - Only render if there are 1-3 posts */}
-              {posts.length >= 1 && posts.length >= 3 && (
+       {posts && console.log(posts.length)}
+
+         { posts.length &&  (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 mb-4 md:items-start">
                   {/* First post */}
                 <div className="h-full">
