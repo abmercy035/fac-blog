@@ -7,7 +7,7 @@ export default async function AuthorsPage() {
 
   const authorsWithPostCounts = await Promise.all(
     authors.map(async (author) => {
-      const posts = await blogApi.getPostsByAuthor(author.username)
+      const {posts} = await blogApi.getPostsByAuthor(author.username)
       return {
         ...author,
         postCount: posts.length,

@@ -13,7 +13,7 @@ export default async function CategoriesPage() {
 
   const categoriesWithPostCounts = await Promise.all(
     categories.map(async (cat) => {
-      const posts = await blogApi.getPostsByCategory(cat.slug)
+      const {posts} = await blogApi.getPostsByCategory(cat.slug)
       return {
         ...cat,
         postCount: posts.length,
