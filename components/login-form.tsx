@@ -92,18 +92,6 @@ export function LoginForm() {
               )}
             </Button>
           </form>
-
-          <div className="mt-6 p-4 bg-muted rounded-lg">
-            <p className="text-sm font-medium mb-2">Demo Credentials:</p>
-            <div className="text-xs space-y-1">
-              <p>
-                <strong>Admin:</strong> admin / admin123
-              </p>
-              <p>
-                <strong>Editor:</strong> editor1 / editor123
-              </p>
-            </div>
-          </div>
         </CardContent>
       </Card>
     </div>
