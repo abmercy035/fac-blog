@@ -24,12 +24,18 @@ interface PostPageProps {
 export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
   const post = await blogApi.getPost(params.slug)
 
+
+function safeISOString(date: any) {
+  const d = new Date(date)
+  return isNaN(d.getTime()) ? undefined : d.toISOString()
+}
+
   if (!post) {
     return {}
   }
 
-  const publishedTime = new Date(post?.publishedAt)?.toISOString()
-  const modifiedTime = new Date(post?.updatedAt)?.toISOString()
+  const publishedTime = safeISOString(new Date(post?.publishedAt))
+  const modifiedTime = safeISOString(new Date(post?.updatedAt))
   const url = `${siteConfig.url}/posts/${post.slug}`
 
   return {

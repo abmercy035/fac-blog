@@ -107,8 +107,8 @@ export default function AdminPostsPage() {
                     ) : (
                       <span>Not published yet</span>
                     )}
-                    <Badge variant={post.isPublished ? "default" : "secondary"}>
-                      {post.isPublished ? "Published" : "Draft"}
+                    <Badge variant={post?.isPublished ? "default" : "secondary"}>
+                      {post?.isPublished ? "Published" : "Draft"}
                     </Badge>
                   </div>
                 </div>
