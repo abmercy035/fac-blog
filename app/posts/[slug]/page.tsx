@@ -28,8 +28,8 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
     return {}
   }
 
-  const publishedTime = new Date(post.publishedAt).toISOString()
-  const modifiedTime = new Date(post.updatedAt).toISOString()
+  const publishedTime = new Date(post?.publishedAt)?.toISOString()
+  const modifiedTime = new Date(post?.updatedAt)?.toISOString()
   const url = `${siteConfig.url}/posts/${post.slug}`
 
   return {
