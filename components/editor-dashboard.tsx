@@ -116,7 +116,11 @@ export function EditorDashboard() {
                   <CardTitle className="text-xl">{post.title}</CardTitle>
                   <CardDescription className="line-clamp-2">{post.excerpt}</CardDescription>
                   <div className="flex items-center space-x-4 text-sm text-muted-foreground">
-                    <span>{formatDistanceToNow(new Date(post.publishedAt), { addSuffix: true })}</span>
+
+   <span>  {post.publishedAt
+    ? formatDistanceToNow(new Date(post.publishedAt), { addSuffix: true })
+    : "Unpublished"}</span>
+
                     <Badge variant={post.isPublished ? "default" : "secondary"}>
                       {post.isPublished ? "Published" : "Draft"}
                     </Badge>
