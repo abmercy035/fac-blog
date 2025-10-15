@@ -87,7 +87,6 @@ export default function AdminSubscribersPage() {
   const filterSubscriberList = () => {
     let filtered = [...subscribers]
 
-    // Search filter
     if (searchQuery) {
       const query = searchQuery.toLowerCase()
       filtered = filtered.filter(
@@ -97,14 +96,12 @@ export default function AdminSubscribersPage() {
       )
     }
 
-    // Status filter
     if (filterStatus !== "all") {
       filtered = filtered.filter((sub) =>
         filterStatus === "active" ? sub.isActive : !sub.isActive,
       )
     }
 
-    // Alerts filter
     if (filterAlerts !== "all") {
       filtered = filtered.filter((sub) =>
         filterAlerts === "enabled" ? sub.receiveNewPostAlerts : !sub.receiveNewPostAlerts,
@@ -116,7 +113,7 @@ export default function AdminSubscribersPage() {
 
   const handleSelectAll = (checked: boolean) => {
     if (checked) {
-      setSelectedIds(filteredSubscribers.map((sub) => sub.id))
+      setSelectedIds(filteredSubscribers.map((sub) => sub._id || sub.id))
     } else {
       setSelectedIds([])
     }
@@ -429,13 +426,15 @@ export default function AdminSubscribersPage() {
                     </TableCell>
                   </TableRow>
                 ) : (
-                  filteredSubscribers.map((subscriber) => (
-                    <TableRow key={subscriber.id}>
+                  filteredSubscribers.map((subscriber) => {
+                    const subId = subscriber._id || subscriber.id
+                    return (
+                    <TableRow key={subId}>
                       <TableCell>
                         <Checkbox
-                          checked={selectedIds.includes(subscriber.id)}
+                          checked={selectedIds.includes(subId)}
                           onCheckedChange={(checked) =>
-                            handleSelectOne(subscriber.id, checked as boolean)
+                            handleSelectOne(subId, checked as boolean)
                           }
                         />
                       </TableCell>
@@ -450,7 +449,7 @@ export default function AdminSubscribersPage() {
                         <Button
                           variant="ghost"
                           size="sm"
-                          onClick={() => handleToggleAlert(subscriber.id)}
+                          onClick={() => handleToggleAlert(subId)}
                         >
                           {subscriber.receiveNewPostAlerts ? (
                             <Bell className="h-4 w-4 text-primary" />
@@ -467,14 +466,14 @@ export default function AdminSubscribersPage() {
                         <Button
                           variant="ghost"
                           size="sm"
-                          onClick={() => handleDeleteOne(subscriber.id)}
+                          onClick={() => handleDeleteOne(subId)}
                           className="text-destructive"
                         >
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </TableCell>
                     </TableRow>
-                  ))
+                  )})
                 )}
               </TableBody>
             </Table>

@@ -12,6 +12,10 @@ export default function HomePage() {
   const [loading, setLoading] = useState(true)
   const [page, setPage] = useState(1)
   const [hasMore, setHasMore] = useState(true)
+  
+  const [email, setEmail] = useState("")
+  const [subscribing, setSubscribing] = useState(false)
+  const [subscriptionMessage, setSubscriptionMessage] = useState("")
 
   useEffect(() => {
     loadPosts()
@@ -39,6 +43,34 @@ export default function HomePage() {
       setHasMore(newPosts.length === 6)
     } catch (error) {
       console.error("Failed to load more posts:", error)
+    }
+  }
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault()
+    
+    if (!email.trim()) {
+      setSubscriptionMessage("Please enter a valid email address")
+      return
+    }
+
+    setSubscribing(true)
+    setSubscriptionMessage("")
+
+    try {
+      await blogApi.subscribe(email.trim(), undefined, "homepage")
+      setSubscriptionMessage("Successfully subscribed! Thank you for joining our community.")
+      setEmail("")
+    } catch (error: any) {
+      if (error.message.includes("already subscribed") || error.message.includes("duplicate") || error.message.includes("exists")) {
+        setSubscriptionMessage("This email is already subscribed to our newsletter.")
+      } else {
+        setSubscriptionMessage("Failed to subscribe. Please try again later.")
+      }
+      console.error("Subscription error:", error)
+    } finally {
+      setSubscribing(false)
+      setTimeout(() => setSubscriptionMessage(""), 5000)
     }
   }
 
@@ -78,22 +110,39 @@ export default function HomePage() {
 
         {/* Subscribe Section */}
         <section className="max-w-4xl mx-auto mb-16">
-          <form className="flex gap-3" onSubmit={(e) => e.preventDefault()}>
+          <form className="flex gap-3" onSubmit={handleSubscribe}>
             <input
               type="email"
               placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="flex-1 md:px-6 px-4 md:py- py-2 bg-secondary border-2 border-border text-background placeholder:text-background focus:outline-none focus:border-primary text-sm md:text-base"
               style={{ borderRadius: '0.5rem' }}
               required
+              disabled={subscribing}
             />
             <button
               type="submit"
-              className="px-4 md:px-8 md:py- py-2 bg-foreground text-background hover:opacity-90 transition-opacity text-sm md:text-base cursor-pointer"
+              disabled={subscribing}
+              className="px-4 md:px-8 md:py- py-2 bg-foreground text-background hover:opacity-90 transition-opacity text-sm md:text-base cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
               style={{ borderRadius: '0.5rem' }}
             >
-              Subscribe
+              {subscribing ? "Subscribing..." : "Subscribe"}
             </button>
           </form>
+          
+          {/* Subscription Message */}
+          {subscriptionMessage && (
+            <div className={`mt-4 p-3 rounded-md text-sm text-center ${
+              subscriptionMessage.includes("Successfully") 
+                ? "bg-green-100 text-green-800 border border-green-200"
+                : subscriptionMessage.includes("already subscribed")
+                ? "bg-yellow-100 text-yellow-800 border border-yellow-200"
+                : "bg-red-100 text-red-800 border border-red-200"
+            }`}>
+              {subscriptionMessage}
+            </div>
+          )}
         </section>
 
         {/* Featured Posts Grid */}
@@ -113,14 +162,13 @@ export default function HomePage() {
             </div>
           ) : (
             <>
-              {/* Featured Section - First 3 posts */}
-              {posts.length > 0 && (
+              {/* Featured Section - Only render if there are 1-3 posts */}
+              {posts.length >= 1 && posts.length >= 3 && (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 mb-4 md:items-start">
                   {/* First post */}
-                  <div className="h-full">
+                <div className="h-full">
                     <BlogPostCard post={posts[0]} featured />
                   </div>
-                  
                   {/* Two posts stacked on the right - flex to distribute space */}
                   <div className="flex flex-col gap-4 h-full">
                     {posts[1] && (
@@ -137,11 +185,12 @@ export default function HomePage() {
                 </div>
               )}
 
-              {/* Rest of the posts in 2 columns */}
-              {posts.length > 3 && (
+              {/* Rest of the posts in 2 columns - show all posts if more than 3 */}
+              {posts.length >= 3 && posts && (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 mb-4">
-                  {posts.slice(3).map((post) => (
-                    <BlogPostCard key={post.id} post={post} />
+                  {posts.map((post, index) => (
+                    index >= 3 &&
+                    <BlogPostCard key={post._id || post.id} post={post} />
                   ))}
                 </div>
               )}

@@ -1,4 +1,5 @@
 export interface Author {
+  _id?: string
   id: string
   name: string
   username: string
@@ -14,6 +15,7 @@ export interface Author {
 }
 
 export interface Category {
+  _id?: string
   id: string
   name: string
   description: string
@@ -21,6 +23,7 @@ export interface Category {
 }
 
 export interface BlogPost {
+  _id?: string
   id: string
   title: string
   content: string
@@ -38,16 +41,19 @@ export interface BlogPost {
 }
 
 export interface Comment {
+  _id?: string
   id: string
   postId: string
   author: string
   email: string
   content: string
   createdAt: string
+  isApproved?: boolean
   replies?: Comment[]
 }
 
 export interface Subscriber {
+  _id?: string
   id: string
   email: string
   name?: string

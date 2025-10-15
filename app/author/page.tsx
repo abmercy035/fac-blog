@@ -5,7 +5,6 @@ import { blogApi } from "@/lib/api"
 export default async function AuthorsPage() {
   const authors = await blogApi.getAuthors()
 
-  // Get post counts for each author
   const authorsWithPostCounts = await Promise.all(
     authors.map(async (author) => {
       const posts = await blogApi.getPostsByAuthor(author.username)

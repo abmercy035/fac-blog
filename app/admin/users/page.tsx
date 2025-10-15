@@ -100,8 +100,6 @@ export default function AdminUsersPage() {
   }
 
   const handleAddUser = async () => {
-    // In a real app, this would create a new user account
-    // For demo purposes, we'll just add to the local array
     const newUserData: User = {
       id: Date.now().toString(),
       ...newUser,

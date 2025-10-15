@@ -1,95 +1,86 @@
-import { blogPosts, comments, subscribers, type BlogPost, type Comment, type Subscriber } from "./blog-data"
-import { users } from "./auth"
-
-// Simulate API delay
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+import apiClient from "./axios"
+import type { BlogPost, Comment, Subscriber } from "./blog-data"
 
 export const adminApi = {
-  // Post management
+
   async getAllPosts(): Promise<BlogPost[]> {
-    await delay(300)
-    return [...blogPosts]
+    try {
+      const response = await apiClient.get("/admin/posts")
+      return response.data
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || "Failed to fetch posts")
+    }
   },
 
-  async createPost(
-    postData: Omit<BlogPost, "id" | "publishedAt" | "updatedAt" | "likes" | "commentsCount">,
-  ): Promise<BlogPost> {
-    await delay(500)
-    const newPost: BlogPost = {
-      ...postData,
-      id: Date.now().toString(),
-      publishedAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-      likes: 0,
-      commentsCount: 0,
+  async createPost(postData: any): Promise<BlogPost> {
+    try {
+      const response = await apiClient.post("/posts", postData)
+      return response.data
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || "Failed to create post")
     }
-    blogPosts.push(newPost)
-    return newPost
   },
 
   async updatePost(id: string, updates: Partial<BlogPost>): Promise<BlogPost> {
-    await delay(400)
-    const postIndex = blogPosts.findIndex((p) => p.id === id)
-    if (postIndex === -1) {
-      throw new Error("Post not found")
+    try {
+      const response = await apiClient.put(`/posts/${id}`, updates)
+      return response.data
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || "Failed to update post")
     }
-    blogPosts[postIndex] = {
-      ...blogPosts[postIndex],
-      ...updates,
-      updatedAt: new Date().toISOString(),
-    }
-    return blogPosts[postIndex]
   },
 
   async deletePost(id: string): Promise<void> {
-    await delay(300)
-    const postIndex = blogPosts.findIndex((p) => p.id === id)
-    if (postIndex === -1) {
-      throw new Error("Post not found")
+    try {
+      await apiClient.delete(`/posts/${id}`)
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || "Failed to delete post")
     }
-    blogPosts.splice(postIndex, 1)
-    // Also remove related comments
-    const commentIndices = comments.map((c, i) => (c.postId === id ? i : -1)).filter((i) => i !== -1)
-    commentIndices.reverse().forEach((i) => comments.splice(i, 1))
   },
 
-  // Comment management
   async getAllComments(): Promise<Comment[]> {
-    await delay(300)
-    return [...comments]
+    try {
+      const response = await apiClient.get("/admin/comments")
+      return response.data
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || "Failed to fetch comments")
+    }
   },
 
   async deleteComment(id: string): Promise<void> {
-    await delay(300)
-    const commentIndex = comments.findIndex((c) => c.id === id)
-    if (commentIndex === -1) {
-      throw new Error("Comment not found")
-    }
-    const comment = comments[commentIndex]
-    comments.splice(commentIndex, 1)
-
-    // Update post comment count
-    const post = blogPosts.find((p) => p.id === comment.postId)
-    if (post && post.commentsCount > 0) {
-      post.commentsCount -= 1
+    try {
+      await apiClient.delete(`/comments/${id}`)
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || "Failed to delete comment")
     }
   },
 
   async updateComment(id: string, content: string): Promise<Comment> {
-    await delay(400)
-    const commentIndex = comments.findIndex((c) => c.id === id)
-    if (commentIndex === -1) {
-      throw new Error("Comment not found")
+    try {
+      const response = await apiClient.put(`/comments/${id}`, { content })
+      return response.data
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || "Failed to update comment")
     }
-    comments[commentIndex].content = content
-    return comments[commentIndex]
   },
 
-  // Analytics
+  async approveComment(id: string): Promise<Comment> {
+    try {
+      const response = await apiClient.put(`/comments/${id}/approve`)
+      return response.data
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || "Failed to approve comment")
+    }
+  },
+
   async getStats(): Promise<{
     totalPosts: number
+    publishedPosts: number
+    draftPosts: number
     totalComments: number
+    pendingComments: number
     totalUsers: number
+    totalSubscribers: number
     totalLikes: number
     recentActivity: Array<{
       type: "post" | "comment"
@@ -98,99 +89,70 @@ export const adminApi = {
       author: string
     }>
   }> {
-    await delay(200)
-    const totalLikes = blogPosts.reduce((sum, post) => sum + post.likes, 0)
-    const recentActivity = [
-      ...blogPosts.slice(-3).map((post) => ({
-        type: "post" as const,
-        title: post.title,
-        date: post.publishedAt,
-        author: post.author.name,
-      })),
-      ...comments.slice(-3).map((comment) => ({
-        type: "comment" as const,
-        title: `Comment on post`,
-        date: comment.createdAt,
-        author: comment.author,
-      })),
-    ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-
-    return {
-      totalPosts: blogPosts.length,
-      totalComments: comments.length,
-      totalUsers: users.length,
-      totalLikes,
-      recentActivity: recentActivity.slice(0, 5),
+    try {
+      const response = await apiClient.get("/admin/stats")
+      return response.data
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || "Failed to fetch stats")
     }
   },
 
-  // Subscriber management
   async getAllSubscribers(): Promise<Subscriber[]> {
-    await delay(300)
-    return [...subscribers]
+    try {
+      const response = await apiClient.get("/subscribers")
+      return response.data
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || "Failed to fetch subscribers")
+    }
   },
 
   async updateSubscriber(id: string, updates: Partial<Subscriber>): Promise<Subscriber> {
-    await delay(400)
-    const subscriberIndex = subscribers.findIndex((s) => s.id === id)
-    if (subscriberIndex === -1) {
-      throw new Error("Subscriber not found")
+    try {
+      const response = await apiClient.put(`/subscribers/${id}`, updates)
+      return response.data
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || "Failed to update subscriber")
     }
-    subscribers[subscriberIndex] = {
-      ...subscribers[subscriberIndex],
-      ...updates,
-    }
-    return subscribers[subscriberIndex]
   },
 
   async deleteSubscriber(id: string): Promise<void> {
-    await delay(300)
-    const subscriberIndex = subscribers.findIndex((s) => s.id === id)
-    if (subscriberIndex === -1) {
-      throw new Error("Subscriber not found")
+    try {
+      await apiClient.delete(`/subscribers/${id}`)
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || "Failed to delete subscriber")
     }
-    subscribers.splice(subscriberIndex, 1)
   },
 
   async toggleSubscriberAlert(id: string): Promise<Subscriber> {
-    await delay(300)
-    const subscriberIndex = subscribers.findIndex((s) => s.id === id)
-    if (subscriberIndex === -1) {
-      throw new Error("Subscriber not found")
+    try {
+      const subscriber = await apiClient.get(`/subscribers/${id}`)
+      const response = await apiClient.put(`/subscribers/${id}`, {
+        receiveNewPostAlerts: !subscriber.data.receiveNewPostAlerts
+      })
+      return response.data
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || "Failed to toggle subscriber alert")
     }
-    subscribers[subscriberIndex].receiveNewPostAlerts = !subscribers[subscriberIndex].receiveNewPostAlerts
-    return subscribers[subscriberIndex]
   },
 
-  async bulkUpdateSubscribers(
-    ids: string[],
-    updates: Partial<Subscriber>,
-  ): Promise<Subscriber[]> {
-    await delay(500)
-    const updatedSubscribers: Subscriber[] = []
+  async bulkUpdateSubscribers(ids: string[], updates: Partial<Subscriber>): Promise<Subscriber[]> {
+    try {
 
-    ids.forEach((id) => {
-      const subscriberIndex = subscribers.findIndex((s) => s.id === id)
-      if (subscriberIndex !== -1) {
-        subscribers[subscriberIndex] = {
-          ...subscribers[subscriberIndex],
-          ...updates,
-        }
-        updatedSubscribers.push(subscribers[subscriberIndex])
-      }
-    })
-
-    return updatedSubscribers
+      const promises = ids.map(id => apiClient.put(`/subscribers/${id}`, updates))
+      const responses = await Promise.all(promises)
+      return responses.map(r => r.data)
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || "Failed to bulk update subscribers")
+    }
   },
 
   async bulkDeleteSubscribers(ids: string[]): Promise<void> {
-    await delay(500)
-    ids.forEach((id) => {
-      const subscriberIndex = subscribers.findIndex((s) => s.id === id)
-      if (subscriberIndex !== -1) {
-        subscribers.splice(subscriberIndex, 1)
-      }
-    })
+    try {
+      const promises = ids.map(id => apiClient.delete(`/subscribers/${id}`))
+      await Promise.all(promises)
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || "Failed to bulk delete subscribers")
+    }
   },
 
   async sendBulkEmail(
@@ -198,20 +160,13 @@ export const adminApi = {
     subject: string,
     message: string,
   ): Promise<{ success: boolean; sentCount: number }> {
-    await delay(1000)
-    // Simulate email sending
-    const activeSubscribers = subscribers.filter(
-      (s) => subscriberIds.includes(s.id) && s.isActive,
-    )
-
-    // In a real app, this would send emails via an email service
-    console.log(`Sending email to ${activeSubscribers.length} subscribers`)
+    console.log(`Sending email to ${subscriberIds.length} subscribers`)
     console.log(`Subject: ${subject}`)
     console.log(`Message: ${message}`)
 
     return {
       success: true,
-      sentCount: activeSubscribers.length,
+      sentCount: subscriberIds.length,
     }
   },
 }

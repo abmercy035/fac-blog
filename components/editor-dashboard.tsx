@@ -20,7 +20,6 @@ export function EditorDashboard() {
     const fetchPosts = async () => {
       try {
         const allPosts = await adminApi.getAllPosts()
-        // Filter posts by current user if they're an editor
         const userPosts =
           user?.role === "admin" ? allPosts : allPosts.filter((post) => post.author.email === user?.email)
         setPosts(userPosts)
@@ -110,7 +109,7 @@ export function EditorDashboard() {
 
       <div className="grid gap-4">
         {posts.map((post) => (
-          <Card key={post.id}>
+          <Card key={post._id || post.id}>
             <CardHeader>
               <div className="flex justify-between items-start">
                 <div className="space-y-2">
@@ -133,7 +132,7 @@ export function EditorDashboard() {
                     </Button>
                   )}
                   <Button variant="outline" size="sm" asChild>
-                    <Link href={`/admin/posts/${post.id}/edit`}>
+                    <Link href={`/admin/posts/${post._id || post.id}/edit`}>
                       <Edit className="h-4 w-4" />
                     </Link>
                   </Button>

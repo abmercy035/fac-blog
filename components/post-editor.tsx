@@ -17,7 +17,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert"
 import { adminApi } from "@/lib/admin-api"
 import { blogApi } from "@/lib/api"
 import { useAuth } from "@/hooks/use-auth"
-import { authors, categories, type Author, type Category } from "@/lib/blog-data"
+import type { Author, Category } from "@/lib/blog-data"
 import { MarkdownRenderer } from "@/components/markdown-renderer"
 import { MarkdownGuide } from "@/components/markdown-guide"
 import { Save, Eye, X, Plus } from "lucide-react"
@@ -35,7 +35,9 @@ export function PostEditor({ postId, mode }: PostEditorProps) {
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState<string | null>(null)
 
-  // Form state
+  const [authors, setAuthors] = useState<Author[]>([])
+  const [categories, setCategories] = useState<Category[]>([])
+
   const [title, setTitle] = useState("")
   const [content, setContent] = useState("")
   const [excerpt, setExcerpt] = useState("")
@@ -43,11 +45,26 @@ export function PostEditor({ postId, mode }: PostEditorProps) {
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(null)
   const [tags, setTags] = useState<string[]>([])
   const [newTag, setNewTag] = useState("")
-  const [isPublished, setIsPublished] = useState(false)
+  const [isPublished, setIsPublished] = useState(true)
   const [featuredImage, setFeaturedImage] = useState("")
   const [slug, setSlug] = useState("")
 
-  // Load existing post for editing
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const [authorsData, categoriesData] = await Promise.all([
+          blogApi.getAuthors(),
+          blogApi.getCategories(),
+        ])
+        setAuthors(authorsData)
+        setCategories(categoriesData)
+      } catch (err) {
+        console.error("Failed to load authors and categories:", err)
+      }
+    }
+    loadData()
+  }, [])
+
   useEffect(() => {
     if (mode === "edit" && postId) {
       const loadPost = async () => {
@@ -72,14 +89,12 @@ export function PostEditor({ postId, mode }: PostEditorProps) {
         }
       }
       loadPost()
-    } else {
-      // Set default author for new posts
+    } else if (authors.length > 0) {
       const currentAuthor = authors.find((a) => a.email === user?.email) || authors[0]
       setSelectedAuthor(currentAuthor)
     }
-  }, [mode, postId, user])
+  }, [mode, postId, user, authors])
 
-  // Auto-generate slug from title
   useEffect(() => {
     if (mode === "create" && title) {
       const generatedSlug = title
@@ -267,33 +282,11 @@ export function PostEditor({ postId, mode }: PostEditorProps) {
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <Label htmlFor="author">Author</Label>
-                <Select
-                  value={selectedAuthor?.id || ""}
-                  onValueChange={(value) => {
-                    const author = authors.find((a) => a.id === value)
-                    setSelectedAuthor(author || null)
-                  }}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select author" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {authors.map((author) => (
-                      <SelectItem key={author.id} value={author.id}>
-                        {author.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div>
                 <Label htmlFor="category">Category</Label>
                 <Select
-                  value={selectedCategory?.id || ""}
+                  value={selectedCategory?._id || selectedCategory?.id || ""}
                   onValueChange={(value) => {
-                    const category = categories.find((c) => c.id === value)
+                    const category = categories.find((c) => (c._id || c.id) === value)
                     setSelectedCategory(category || null)
                   }}
                 >
@@ -302,7 +295,7 @@ export function PostEditor({ postId, mode }: PostEditorProps) {
                   </SelectTrigger>
                   <SelectContent>
                     {categories.map((category) => (
-                      <SelectItem key={category.id} value={category.id}>
+                      <SelectItem key={category._id || category.id} value={category._id || category.id}>
                         {category.name}
                       </SelectItem>
                     ))}
@@ -325,9 +318,9 @@ export function PostEditor({ postId, mode }: PostEditorProps) {
                 />
               </div>
 
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-2 hidden">
                 <Switch id="published" checked={isPublished} onCheckedChange={setIsPublished} />
-                <Label htmlFor="published">Published</Label>
+                <Label htmlFor="published">Save as Draft</Label>
               </div>
             </CardContent>
           </Card>
@@ -353,8 +346,8 @@ export function PostEditor({ postId, mode }: PostEditorProps) {
                 {tags.map((tag) => (
                   <Badge key={tag} variant="secondary" className="flex items-center space-x-1">
                     <span>{tag}</span>
-                    <button onClick={() => removeTag(tag)} className="ml-1 hover:text-destructive">
-                      <X className="h-3 w-3" />
+                    <button onClick={() => removeTag(tag)} className="cursor-pointer ml-1 hover:text-destructive">
+                      <X className="h-3 w-3 md:h-4 md:w-4" />
                     </button>
                   </Badge>
                 ))}

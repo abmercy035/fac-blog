@@ -25,7 +25,7 @@ export function LoginForm() {
       await login(username, password)
       router.push("/admin")
     } catch (err) {
-      // Error is handled by the auth context
+      console.log(err)
     }
   }
 

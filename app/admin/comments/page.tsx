@@ -36,6 +36,7 @@ export default function AdminCommentsPage() {
   const [deletingId, setDeletingId] = useState<string | null>(null)
   const [editingComment, setEditingComment] = useState<Comment | null>(null)
   const [editContent, setEditContent] = useState("")
+  const [editDialogOpen, setEditDialogOpen] = useState(false)
 
   useEffect(() => {
     const fetchComments = async () => {
@@ -56,7 +57,7 @@ export default function AdminCommentsPage() {
     setDeletingId(id)
     try {
       await adminApi.deleteComment(id)
-      setComments(comments.filter((comment) => comment.id !== id))
+      setComments(comments.filter((comment) => (comment._id || comment.id) !== id))
     } catch (error) {
       console.error("Failed to delete comment:", error)
     } finally {
@@ -68,10 +69,12 @@ export default function AdminCommentsPage() {
     if (!editingComment) return
 
     try {
-      const updatedComment = await adminApi.updateComment(editingComment.id, editContent)
-      setComments(comments.map((c) => (c.id === updatedComment.id ? updatedComment : c)))
+      const commentId = editingComment._id || editingComment.id
+      const updatedComment = await adminApi.updateComment(commentId, editContent)
+      setComments(comments.map((c) => ((c._id || c.id) === (updatedComment._id || updatedComment.id) ? updatedComment : c)))
       setEditingComment(null)
       setEditContent("")
+      setEditDialogOpen(false) 
     } catch (error) {
       console.error("Failed to update comment:", error)
     }
@@ -80,6 +83,13 @@ export default function AdminCommentsPage() {
   const openEditDialog = (comment: Comment) => {
     setEditingComment(comment)
     setEditContent(comment.content)
+    setEditDialogOpen(true)
+  }
+
+  const closeEditDialog = () => {
+    setEditingComment(null)
+    setEditContent("")
+    setEditDialogOpen(false)
   }
 
   if (loading) {
@@ -109,7 +119,7 @@ export default function AdminCommentsPage() {
 
       <div className="grid gap-4">
         {comments.map((comment) => (
-          <Card key={comment.id}>
+          <Card key={comment._id || comment.id}>
             <CardHeader>
               <div className="flex justify-between items-start">
                 <div className="space-y-2">
@@ -125,7 +135,7 @@ export default function AdminCommentsPage() {
                   </CardDescription>
                 </div>
                 <div className="flex space-x-2">
-                  <Dialog>
+                  <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
                     <DialogTrigger asChild>
                       <Button variant="outline" size="sm" onClick={() => openEditDialog(comment)}>
                         <Edit className="h-4 w-4" />
@@ -148,7 +158,7 @@ export default function AdminCommentsPage() {
                         </div>
                       </div>
                       <DialogFooter>
-                        <Button variant="outline" onClick={() => setEditingComment(null)}>
+                        <Button variant="outline" onClick={closeEditDialog}>
                           Cancel
                         </Button>
                         <Button onClick={handleEdit}>Save Changes</Button>
@@ -157,7 +167,7 @@ export default function AdminCommentsPage() {
                   </Dialog>
                   <AlertDialog>
                     <AlertDialogTrigger asChild>
-                      <Button variant="outline" size="sm" disabled={deletingId === comment.id}>
+                      <Button variant="outline" size="sm" disabled={deletingId === (comment._id || comment.id)}>
                         <Trash2 className="h-4 w-4" />
                       </Button>
                     </AlertDialogTrigger>
@@ -172,7 +182,7 @@ export default function AdminCommentsPage() {
                       <AlertDialogFooter>
                         <AlertDialogCancel>Cancel</AlertDialogCancel>
                         <AlertDialogAction
-                          onClick={() => handleDelete(comment.id)}
+                          onClick={() => handleDelete(comment._id || comment.id)}
                           className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
                         >
                           Delete

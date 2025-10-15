@@ -45,7 +45,7 @@ export default function AdminPostsPage() {
     setDeletingId(id)
     try {
       await adminApi.deletePost(id)
-      setPosts(posts.filter((post) => post.id !== id))
+      setPosts(posts.filter((post) => (post._id || post.id) !== id))
     } catch (error) {
       console.error("Failed to delete post:", error)
     } finally {
@@ -94,15 +94,19 @@ export default function AdminPostsPage() {
 
       <div className="grid gap-4">
         {posts.map((post) => (
-          <Card key={post.id}>
+          <Card key={post._id || post.id}>
             <CardHeader>
               <div className="flex justify-between items-start">
                 <div className="space-y-2">
                   <CardTitle className="text-xl">{post.title}</CardTitle>
                   <CardDescription className="line-clamp-2">{post.excerpt}</CardDescription>
                   <div className="flex items-center space-x-4 text-sm text-muted-foreground">
-                    <span>by {post.author.name}</span>
-                    <span>{formatDistanceToNow(new Date(post.publishedAt), { addSuffix: true })}</span>
+                    <span>by {post.author?.name}</span>
+                    {post.publishedAt ? (
+                      <span>{formatDistanceToNow(new Date(post.publishedAt), { addSuffix: true })}</span>
+                    ) : (
+                      <span>Not published yet</span>
+                    )}
                     <Badge variant={post.isPublished ? "default" : "secondary"}>
                       {post.isPublished ? "Published" : "Draft"}
                     </Badge>
@@ -115,13 +119,13 @@ export default function AdminPostsPage() {
                     </Link>
                   </Button>
                   <Button variant="outline" size="sm" asChild>
-                    <Link href={`/admin/posts/${post.id}/edit`}>
+                    <Link href={`/admin/posts/${post._id || post.id}/edit`}>
                       <Edit className="h-4 w-4" />
                     </Link>
                   </Button>
                   <AlertDialog>
                     <AlertDialogTrigger asChild>
-                      <Button variant="outline" size="sm" disabled={deletingId === post.id}>
+                      <Button variant="outline" size="sm" disabled={deletingId === (post._id || post.id)}>
                         <Trash2 className="h-4 w-4" />
                       </Button>
                     </AlertDialogTrigger>
@@ -135,7 +139,7 @@ export default function AdminPostsPage() {
                       <AlertDialogFooter>
                         <AlertDialogCancel>Cancel</AlertDialogCancel>
                         <AlertDialogAction
-                          onClick={() => handleDelete(post.id)}
+                          onClick={() => handleDelete(post._id || post.id)}
                           className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
                         >
                           Delete

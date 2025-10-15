@@ -74,10 +74,9 @@ export default async function PostPage({ params }: PostPageProps) {
   if (!post) {
     notFound()
   }
-
+  
   const readingTime = Math.ceil(post.content.split(" ").length / 200)
 
-  // Structured data for blog post
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -175,7 +174,7 @@ export default async function PostPage({ params }: PostPageProps) {
               </div>
 
               <div className="flex items-center space-x-4">
-                <LikeButton postId={post.id} initialLikes={post.likes} />
+                <LikeButton postId={post._id || post.id} initialLikes={post.likes} />
                 <ShareButtons title={post.title} url={`/posts/${post.slug}`} excerpt={post.excerpt} />
               </div>
             </div>
@@ -224,9 +223,9 @@ export default async function PostPage({ params }: PostPageProps) {
                   <p className="text-muted-foreground mb-4 text-sm md:text-base text-pretty">{post.author.bio}</p>
                   <div className="flex space-x-4 text-sm md:text-base">
                
-                    {post.author.social.facebook && (
+                    {post.author?.social?.facebook && (
                       <a
-                        href={`https://facebook.com/${post.author.social.facebook}`}
+                        href={`https://facebook.com/${post.author?.social?.facebook}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-primary hover:underline"
@@ -234,9 +233,9 @@ export default async function PostPage({ params }: PostPageProps) {
                         Facebook
                       </a>
                     )}
-                    {post.author.social.linkedin && (
+                    {post.author?.social?.linkedin && (
                       <a
-                        href={`https://linkedin.com/in/${post.author.social.linkedin}`}
+                        href={`https://linkedin.com/in/${post.author?.social?.linkedin}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-primary hover:underline"
@@ -250,7 +249,7 @@ export default async function PostPage({ params }: PostPageProps) {
             </CardContent>
           </Card>
 
-          <CommentsSection postId={post.id} initialCommentsCount={post.commentsCount} />
+          <CommentsSection postId={post._id || post.id} initialCommentsCount={post.commentsCount} />
         </article>
       </main>
       </div>
@@ -259,7 +258,6 @@ export default async function PostPage({ params }: PostPageProps) {
 }
 
 export async function generateStaticParams() {
-  // In a real app, you'd fetch all post slugs from your API
   return [
     { slug: "when-faith-finds-a-canvas" },
     { slug: "the-sacred-in-the-ordinary" },

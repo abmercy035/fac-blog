@@ -19,7 +19,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    // Check for existing session on mount
     const token = localStorage.getItem("auth_token")
     if (token) {
       authApi
@@ -59,7 +58,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       const token = localStorage.getItem("auth_token")
       if (token) {
-        await authApi.logout(token)
+        await authApi.logout()
         localStorage.removeItem("auth_token")
       }
       setUser(null)

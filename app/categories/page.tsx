@@ -3,17 +3,22 @@ import { CategoryCard } from "@/components/category-card"
 import { blogApi } from "@/lib/api"
 
 export default async function CategoriesPage() {
-  const categories = await blogApi.getCategories()
+   let categories: any[] = []
+   
+  try {
+    categories = await blogApi.getCategories()
+  } catch (e) {
+    categories = []
+  }
 
-  // Get post counts for each category
   const categoriesWithPostCounts = await Promise.all(
-    categories.map(async (category) => {
-      const posts = await blogApi.getPostsByCategory(category.slug)
+    categories.map(async (cat) => {
+      const posts = await blogApi.getPostsByCategory(cat.slug)
       return {
-        ...category,
+        ...cat,
         postCount: posts.length,
       }
-    }),
+    })
   )
 
   return (

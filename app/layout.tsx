@@ -5,9 +5,9 @@ import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 import { Suspense } from "react"
 import { AuthProvider } from "@/hooks/use-auth"
-import { BlogFooter } from "@/components/blog-footer"
 import { siteConfig } from "@/lib/site-config"
 import { Toaster } from "sonner"
+import { ConditionalFooter } from "@/components/conditional-footer"
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -118,7 +118,7 @@ export default function RootLayout({
               <main className="flex-grow">
                 {children}
               </main>
-              <BlogFooter />
+              <ConditionalFooter />
             </div>
             <Toaster position="top-center" richColors />
             <Analytics />

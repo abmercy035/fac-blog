@@ -1,116 +1,147 @@
-import {
-  type BlogPost,
-  type Comment,
-  type Author,
-  type Category,
-  blogPosts,
-  comments,
-  authors,
-  categories,
-} from "./blog-data"
-
-// Simulate API delay
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+import apiClient from "./axios"
+import type { BlogPost, Comment, Author, Category } from "./blog-data"
 
 export const blogApi = {
-  // Posts
-  async getPosts(page = 1, limit = 10): Promise<{ posts: BlogPost[]; total: number }> {
-    await delay(300)
-    const start = (page - 1) * limit
-    const end = start + limit
-    return {
-      posts: blogPosts.slice(start, end),
-      total: blogPosts.length,
+
+  async getPosts(page = 1, limit = 10): Promise<{ posts: BlogPost[]; total: number; pages: number }> {
+    try {
+      const response = await apiClient.get(`/posts?page=${page}&limit=${limit}`)
+      return response.data
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || "Failed to fetch posts")
     }
   },
 
   async getPost(slug: string): Promise<BlogPost | null> {
-    await delay(200)
-    return blogPosts.find((post) => post.slug === slug) || null
+    try {
+      const response = await apiClient.get(`/posts/${slug}`)
+      return response.data
+    } catch (error: any) {
+      if (error.response?.status === 404) return null
+      throw new Error(error.response?.data?.message || "Failed to fetch post")
+    }
   },
 
   async getPostById(id: string): Promise<BlogPost | null> {
-    await delay(200)
-    return blogPosts.find((post) => post.id === id) || null
+    try {
+      const response = await apiClient.get(`/posts/id/${id}`)
+      return response.data
+    } catch (error: any) {
+      if (error.response?.status === 404) return null
+      throw new Error(error.response?.data?.message || "Failed to fetch post")
+    }
   },
 
   async getPostsByCategory(categorySlug: string): Promise<BlogPost[]> {
-    await delay(300)
-    return blogPosts.filter((post) => post.category.slug === categorySlug)
+    try {
+      const response = await apiClient.get(`/posts/category/${categorySlug}`)
+      return response.data
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || "Failed to fetch posts by category")
+    }
   },
 
   async getPostsByAuthor(authorId: string): Promise<BlogPost[]> {
-    await delay(300)
-    return blogPosts.filter((post) => post.author.username === authorId)
+    try {
+      const response = await apiClient.get(`/posts/author/${authorId}`)
+      return response.data
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || "Failed to fetch posts by author")
+    }
   },
 
   async searchPosts(query: string): Promise<BlogPost[]> {
-    await delay(400)
-    const lowercaseQuery = query.toLowerCase()
-    return blogPosts.filter(
-      (post) =>
-        post.title.toLowerCase().includes(lowercaseQuery) ||
-        post.content.toLowerCase().includes(lowercaseQuery) ||
-        post.tags.some((tag) => tag.toLowerCase().includes(lowercaseQuery)),
-    )
+    try {
+      const response = await apiClient.get(`/posts/search?q=${encodeURIComponent(query)}`)
+      return response.data
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || "Failed to search posts")
+    }
   },
 
   async likePost(postId: string): Promise<{ likes: number }> {
-    await delay(200)
-    const post = blogPosts.find((p) => p.id === postId)
-    if (post) {
-      post.likes += 1
-      return { likes: post.likes }
+    try {
+      const response = await apiClient.post(`/posts/${postId}/like`)
+      return response.data
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || "Failed to like post")
     }
-    throw new Error("Post not found")
   },
 
-  // Comments
   async getComments(postId: string): Promise<Comment[]> {
-    await delay(300)
-    return comments.filter((comment) => comment.postId === postId)
+    try {
+      const response = await apiClient.get(`/comments/${postId}`)
+      return response.data
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || "Failed to fetch comments")
+    }
   },
 
   async addComment(postId: string, author: string, email: string, content: string): Promise<Comment> {
-    await delay(400)
-    const newComment: Comment = {
-      id: Date.now().toString(),
-      postId,
-      author,
-      email,
-      content,
-      createdAt: new Date().toISOString(),
+    try {
+      const response = await apiClient.post("/comments", {
+        postId,
+        author,
+        email,
+        content,
+      })
+      return response.data
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || "Failed to add comment")
     }
-    comments.push(newComment)
-
-    // Update comment count
-    const post = blogPosts.find((p) => p.id === postId)
-    if (post) {
-      post.commentsCount += 1
-    }
-
-    return newComment
   },
 
-  // Authors
   async getAuthors(): Promise<Author[]> {
-    await delay(200)
-    return authors
+    try {
+      const response = await apiClient.get("/authors")
+      return response.data
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || "Failed to fetch authors")
+    }
   },
 
-  async getAuthor(id: string): Promise<Author | null> {
-    await delay(200)
-    return authors.find((author) => author.username === id) || null
+  async getAuthor(username: string): Promise<Author | null> {
+    try {
+      const response = await apiClient.get(`/authors/${username}`)
+      return response.data
+    } catch (error: any) {
+      if (error.response?.status === 404) return null
+      throw new Error(error.response?.data?.message || "Failed to fetch author")
+    }
   },
 
-  // Categories
   async getCategories(): Promise<Category[]> {
-    await delay(200)
-    return categories
-},
+    try {
+      const response = await apiClient.get("/categories")
+      return response.data
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || "Failed to fetch categories")
+    }
+  },
 
   async getCategory(slug: string): Promise<Category | null> {
-    await delay(200)
-    return categories.find((category) => category.slug === slug) || null
+    try {
+      const response = await apiClient.get(`/categories/${slug}`)
+      return response.data
+    } catch (error: any) {
+      if (error.response?.status === 404) return null
+      throw new Error(error.response?.data?.message || "Failed to fetch category")
+    }
+  },
+
+  async subscribe(email: string, name?: string, source?: string): Promise<void> {
+    try {
+      await apiClient.post("/subscribers", { email, name, source })
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || "Failed to subscribe")
+    }
+  },
+
+  async unsubscribe(email: string): Promise<void> {
+    try {
+      await apiClient.post("/subscribers/unsubscribe", { email })
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || "Failed to unsubscribe")
+    }
   },
 }

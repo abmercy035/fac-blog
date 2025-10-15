@@ -16,7 +16,6 @@ export function ShareButtons({ title, url, excerpt }: ShareButtonsProps) {
   const [copied, setCopied] = useState(false)
   const [canShare, setCanShare] = useState(false)
 
-  // Check if native share is available after component mounts
   useEffect(() => {
     setCanShare(typeof navigator !== "undefined" && "share" in navigator)
   }, [])
@@ -45,7 +44,6 @@ export function ShareButtons({ title, url, excerpt }: ShareButtonsProps) {
           await navigator.share(shareData)
           toast.success("Shared successfully!")
         } catch (error: any) {
-          // User cancelled or error occurred
           if (error.name !== "AbortError") {
             console.log("Error sharing:", error)
             toast.error("Failed to share")
@@ -61,7 +59,7 @@ export function ShareButtons({ title, url, excerpt }: ShareButtonsProps) {
           toast.success("Link copied to clipboard!")
         } catch (error) {
           console.log("Error copying to clipboard:", error)
-          // Fallback for older browsers
+
           const textArea = document.createElement("textarea")
           textArea.value = fullUrl
           textArea.style.position = "fixed"

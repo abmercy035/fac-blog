@@ -1,9 +1,26 @@
+"use client"
+
 import Link from "next/link"
 import { Facebook, Twitter, Instagram, Mail, Linkedin } from "lucide-react"
-import { categories } from "@/lib/blog-data"
+import { useEffect, useState } from "react"
+import { blogApi } from "@/lib/api"
+import type { Category } from "@/lib/blog-data"
 
 export function BlogFooter() {
   const currentYear = new Date().getFullYear()
+  const [categories, setCategories] = useState<Category[]>([])
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const data = await blogApi.getCategories()
+        setCategories(data)
+      } catch (error) {
+        console.error("Failed to fetch categories:", error)
+      }
+    }
+    fetchCategories()
+  }, [])
   return (
     <footer className="bg-foreground text-background border-t border-border mt-16">
       <div className="container mx-auto px-4 py-12">
@@ -35,7 +52,7 @@ Faith Meets Art, Redefining Culture
             <h3 className="font-bold text-sm md:text-lg mb-4">Categories</h3>
             <ul className="space-y-2">
               {categories.map((category) => (
-                <li key={category.id}>
+                <li key={category._id || category.id}>
                   <Link 
                     href={`/categories/${category.slug}`}
                     className="text-sm text-background/80 hover:text-primary transition-colors"

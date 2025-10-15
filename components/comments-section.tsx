@@ -69,7 +69,7 @@ export function CommentsSection({ postId, initialCommentsCount }: CommentsSectio
           ) : comments.length > 0 ? (
             <div className="space-y-6">
               {comments.map((comment) => (
-                <CommentItem key={comment.id} comment={comment} />
+                <CommentItem key={comment._id} comment={comment} />
               ))}
             </div>
           ) : (

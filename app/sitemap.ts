@@ -1,11 +1,29 @@
 import { MetadataRoute } from "next"
-import { blogPosts, categories, authors } from "@/lib/blog-data"
 import { siteConfig } from "@/lib/site-config"
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 	const baseUrl = siteConfig.url
 
-	// Static pages
+	let blogPosts: any[] = []
+	let categories: any[] = []
+	let authors: any[] = []
+
+	try {
+		const API_BASE = process.env.BACKEND_URL || 'http://localhost:5000/api'
+
+		const [postsResponse, categoriesResponse, authorsResponse] = await Promise.all([
+			fetch(`${API_BASE}/posts?limit=100`).then(res => res.ok ? res.json() : { posts: [] }),
+			fetch(`${API_BASE}/categories`).then(res => res.ok ? res.json() : []),
+			fetch(`${API_BASE}/authors`).then(res => res.ok ? res.json() : [])
+		])
+
+		blogPosts = postsResponse.posts || postsResponse
+		categories = categoriesResponse
+		authors = authorsResponse
+	} catch (error) {
+		console.error('Error fetching sitemap data:', error)
+	}
+
 	const staticPages = [
 		{
 			url: baseUrl,
@@ -45,7 +63,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 		},
 	]
 
-	// Blog posts
 	const postPages = blogPosts
 		.filter((post) => post.isPublished)
 		.map((post) => ({
@@ -55,7 +72,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 			priority: 0.9,
 		}))
 
-	// Categories
 	const categoryPages = categories.map((category) => ({
 		url: `${baseUrl}/categories/${category.slug}`,
 		lastModified: new Date(),
@@ -63,7 +79,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 		priority: 0.7,
 	}))
 
-	// Authors
 	const authorPages = authors.map((author) => ({
 		url: `${baseUrl}/author/${author.username}`,
 		lastModified: new Date(),

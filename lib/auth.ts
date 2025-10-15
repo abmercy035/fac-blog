@@ -1,5 +1,8 @@
+import apiClient from "./axios"
+
 // Authentication and authorization utilities
 export interface User {
+  _id?: string
   id: string
   username: string
   email: string
@@ -13,102 +16,165 @@ export interface User {
 export interface AuthSession {
   user: User
   token: string
-  expiresAt: string
+  expiresAt?: string
 }
-
-// Mock users for demo - in production, this would be in a database
-export const users: User[] = [
-  {
-    id: "1",
-    username: "admin",
-    email: "admin@fac.com",
-    role: "admin",
-    name: "Admin User",
-    avatar: "/professional-woman-developer.png",
-    createdAt: "2024-01-01T00:00:00Z",
-    lastLogin: "2024-01-20T10:00:00Z",
-  },
-  {
-    id: "2",
-    username: "editor1",
-    email: "editor@fac.com",
-    role: "editor",
-    name: "John Editor",
-    avatar: "/professional-man-developer.png",
-    createdAt: "2024-01-01T00:00:00Z",
-    lastLogin: "2024-01-19T15:30:00Z",
-  },
-]
-
-// Mock sessions storage
-let sessions: AuthSession[] = []
-
-// Simulate API delay
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
 export const authApi = {
   async login(username: string, password: string): Promise<AuthSession> {
-    await delay(500)
+    try {
+      const response = await apiClient.post("/auth/login", { username, password })
+      const data = response.data
 
-    // Simple password check - in production, use proper hashing
-    const validCredentials = [
-      { username: "admin", password: "admin123" },
-      { username: "editor1", password: "editor123" },
-    ]
+      // Store token in localStorage
+      if (typeof window !== "undefined") {
+        localStorage.setItem("token", data.token)
+      }
 
-    const credential = validCredentials.find((c) => c.username === username && c.password === password)
-    if (!credential) {
-      throw new Error("Invalid credentials")
+      return {
+        user: {
+          id: data._id,
+          _id: data._id,
+          username: data.username,
+          email: data.email,
+          role: data.role,
+          name: data.name,
+          avatar: data.avatar,
+          createdAt: data.createdAt,
+          lastLogin: data.lastLogin,
+        },
+        token: data.token,
+      }
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || "Login failed")
     }
-
-    const user = users.find((u) => u.username === username)
-    if (!user) {
-      throw new Error("User not found")
-    }
-
-    const session: AuthSession = {
-      user: { ...user, lastLogin: new Date().toISOString() },
-      token: `token_${Date.now()}_${Math.random()}`,
-      expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(), // 24 hours
-    }
-
-    sessions.push(session)
-    return session
   },
 
-  async logout(token: string): Promise<void> {
-    await delay(200)
-    sessions = sessions.filter((s) => s.token !== token)
+  async register(username: string, email: string, password: string, name: string): Promise<AuthSession> {
+    try {
+      const response = await apiClient.post("/auth/register", { username, email, password, name })
+      const data = response.data
+
+      // Store token in localStorage
+      if (typeof window !== "undefined") {
+        localStorage.setItem("token", data.token)
+      }
+
+      return {
+        user: {
+          id: data._id,
+          _id: data._id,
+          username: data.username,
+          email: data.email,
+          role: data.role,
+          name: data.name,
+          avatar: data.avatar,
+          createdAt: data.createdAt,
+          lastLogin: data.lastLogin,
+        },
+        token: data.token,
+      }
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || "Registration failed")
+    }
+  },
+
+  async logout(): Promise<void> {
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("token")
+    }
   },
 
   async validateSession(token: string): Promise<User | null> {
-    await delay(100)
-    const session = sessions.find((s) => s.token === token && new Date(s.expiresAt) > new Date())
-    return session?.user || null
+    try {
+      const response = await apiClient.get("/auth/validate")
+      const data = response.data
+
+      if (data.valid && data.user) {
+        return {
+          id: data.user._id,
+          _id: data.user._id,
+          username: data.user.username,
+          email: data.user.email,
+          role: data.user.role,
+          name: data.user.name,
+          avatar: data.user.avatar,
+          createdAt: data.user.createdAt,
+          lastLogin: data.user.lastLogin,
+        }
+      }
+      return null
+    } catch (error) {
+      return null
+    }
+  },
+
+  async getMe(): Promise<User | null> {
+    try {
+      const response = await apiClient.get("/auth/me")
+      const data = response.data
+
+      return {
+        id: data._id,
+        _id: data._id,
+        username: data.username,
+        email: data.email,
+        role: data.role,
+        name: data.name,
+        avatar: data.avatar,
+        createdAt: data.createdAt,
+        lastLogin: data.lastLogin,
+      }
+    } catch (error) {
+      return null
+    }
   },
 
   async getUsers(): Promise<User[]> {
-    await delay(300)
-    return users
+    try {
+      const response = await apiClient.get("/admin/users")
+      return response.data.map((user: any) => ({
+        id: user._id,
+        _id: user._id,
+        username: user.username,
+        email: user.email,
+        role: user.role,
+        name: user.name,
+        avatar: user.avatar,
+        createdAt: user.createdAt,
+        lastLogin: user.lastLogin,
+      }))
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || "Failed to fetch users")
+    }
   },
 
   async updateUserRole(userId: string, role: "admin" | "editor" | "viewer"): Promise<User> {
-    await delay(400)
-    const user = users.find((u) => u.id === userId)
-    if (!user) {
-      throw new Error("User not found")
+    try {
+      const response = await apiClient.put(`/admin/users/${userId}/role`, { role })
+      const data = response.data
+
+      return {
+        id: data._id,
+        _id: data._id,
+        username: data.username,
+        email: data.email,
+        role: data.role,
+        name: data.name,
+        avatar: data.avatar,
+        createdAt: data.createdAt,
+        lastLogin: data.lastLogin,
+      }
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || "Failed to update user role")
     }
-    user.role = role
-    return user
   },
 
   async deleteUser(userId: string): Promise<void> {
-    await delay(300)
-    const index = users.findIndex((u) => u.id === userId)
-    if (index === -1) {
-      throw new Error("User not found")
+    try {
+      await apiClient.delete(`/admin/users/${userId}`)
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || "Failed to delete user")
     }
-    users.splice(index, 1)
   },
 }
 

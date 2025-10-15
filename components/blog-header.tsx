@@ -7,16 +7,31 @@ import { Button } from "@/components/ui/button"
 import { SearchDialog } from "./search-dialog"
 import { MobileNav } from "./mobile-nav"
 import { cn } from "@/lib/utils"
+import { useEffect, useState } from "react"
+import { blogApi } from "@/lib/api"
+import type { Category } from "@/lib/blog-data"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { categories } from "@/lib/blog-data"
 
 export function BlogHeader() {
   const pathname = usePathname()
+  const [categories, setCategories] = useState<Category[]>([])
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const data = await blogApi.getCategories()
+        setCategories(data)
+      } catch (error) {
+        console.error("Failed to fetch categories:", error)
+      }
+    }
+    fetchCategories()
+  }, [])
 
   const navItems = [
     { href: "/", label: "Home" },
@@ -60,7 +75,7 @@ export function BlogHeader() {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-56">
                 {categories.map((category) => (
-                  <DropdownMenuItem key={category.id} asChild>
+                  <DropdownMenuItem key={category._id || category.id} asChild>
                     <Link href={`/categories/${category.slug}`} className="cursor-pointer">
                       {category.name}
                     </Link>

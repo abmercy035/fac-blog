@@ -34,7 +34,6 @@ export function CommentForm({ postId, onCommentAdded }: CommentFormProps) {
       const newComment = await blogApi.addComment(postId, author.trim(), email.trim(), content.trim())
       onCommentAdded(newComment)
 
-      // Reset form
       setAuthor("")
       setEmail("")
       setContent("")
@@ -86,7 +85,7 @@ export function CommentForm({ postId, onCommentAdded }: CommentFormProps) {
                 className="text-sm md:text-base resize-none"
           />
 
-          <Button type="submit" disabled={isSubmitting || !author.trim() || !email.trim() || !content.trim()} className="text-sm md:text-base">
+          <Button type="submit" disabled={isSubmitting || !author.trim() || !email.trim() || !content.trim()} className="text-sm md:text-base cursor-pointer">
             {isSubmitting ? (
               "Posting..."
             ) : (
