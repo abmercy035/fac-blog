@@ -117,6 +117,7 @@ export const blogApi = {
       const response = await apiClient.get("/categories")
       return response.data
     } catch (error: any) {
+      console.log(error)
       throw new Error(error.response?.data?.message || "Failed to fetch categories")
     }
   },

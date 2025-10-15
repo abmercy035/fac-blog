@@ -155,7 +155,7 @@ export function PostEditor({ postId, mode }: PostEditorProps) {
         tags,
         isPublished: publish,
         slug: slug.trim(),
-        featuredImage: featuredImage || "/blog-post-concept.png",
+        featuredImage: featuredImage || "/placeholder.jpg",
       }
 
       if (mode === "create") {

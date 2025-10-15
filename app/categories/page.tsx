@@ -6,20 +6,10 @@ export default async function CategoriesPage() {
    let categories: any[] = []
    
   try {
-    categories = await blogApi.getCategories()
+    categories = await blogApi.getCategories();
   } catch (e) {
     categories = []
   }
-
-  const categoriesWithPostCounts = await Promise.all(
-    categories.map(async (cat) => {
-      const {posts} = await blogApi.getPostsByCategory(cat.slug)
-      return {
-        ...cat,
-        postCount: posts.length,
-      }
-    })
-  )
 
   return (
     <div className="min-h-screen bg-background">
@@ -35,7 +25,7 @@ export default async function CategoriesPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {categoriesWithPostCounts.map((category) => (
+            {categories.map((category) => (
               <CategoryCard key={category.id} category={category} postCount={category.postCount} />
             ))}
           </div>
