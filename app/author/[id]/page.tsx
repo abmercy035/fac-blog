@@ -46,7 +46,7 @@ console.log(author)
               <AvatarFallback className="text-2xl">
                 {author.name
                   .split(" ")
-                  .map((n: any[]) => n[0])
+                  .map((n) => n[0])
                   .join("")}
               </AvatarFallback>
             </Avatar>
