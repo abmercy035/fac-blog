@@ -73,18 +73,13 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           </div>
           <section>
             {posts.length > 0 ? (
+          <> 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
                 {posts.map((post) => (
                   <BlogPostCard key={post._id || post.id} post={post} />
                 ))}
               </div>
-            ) : (
-              <div className="text-center py-12">
-                <p className="text-muted-foreground text-lg">No articles in this category yet.</p>
-              </div>
-            )}
-          </section>
-          <div className="flex justify-center gap-4 mt-8">
+                 <div className="flex justify-center gap-4 mt-8">
     <Link href={`/categories/${params.slug}?page=${page - 1}`}>
       <Button disabled={page <= 1}>Previous</Button>
     </Link>
@@ -93,6 +88,14 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       <Button disabled={page >= pages}>Next</Button>
     </Link>
   </div>
+  </>
+            ) : (
+              <div className="text-center py-12">
+                <p className="text-muted-foreground text-lg">No articles in this category yet.</p>
+              </div>
+            )}
+          </section>
+       
         </div>
       </main>
     </div>
