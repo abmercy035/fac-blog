@@ -18,14 +18,10 @@ export default function HomePage() {
   const [subscriptionMessage, setSubscriptionMessage] = useState("")
 
   useEffect(() => {
-    console.log("loading post")
-
     loadPosts()
   }, [])
 
   const loadPosts = async () => {
-    console.log("loading post called")
-
     try {
       setLoading(true)
       const { posts: newPosts, total } = await blogApi.getPosts(page, 6)

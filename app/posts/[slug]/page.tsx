@@ -178,7 +178,6 @@ export default async function PostPage({ params }: PostPageProps) {
                   </p>
                 </div>
               </div>
-
               <div className="flex items-center space-x-4">
                 <LikeButton postId={post._id || post.id} initialLikes={post.likes} />
                 <ShareButtons title={post.title} url={`/posts/`} excerpt={post.excerpt} />
