@@ -17,7 +17,7 @@ export function BlogPostCard({ post, featured = false }: BlogPostCardProps) {
       <Card className="shadow-none transition-all duration-300 bg-transparent border-0 h-full flex flex-col gap-0!">
         <div className="relative w-full h-[40%] min-h-[250px] overflow-hidden flex-shrink-0">
           <Image
-            src={post.featuredImage || "/placeholder.svg"}
+            src={post.featuredImage || "/placeholder.jpg"}
             alt={post.title}
             fill
             className="object-cover transition-transform duration-300 hover:scale-105"

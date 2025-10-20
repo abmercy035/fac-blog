@@ -106,7 +106,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <script
+      <link rel="manifest" href="/site.webmanifest" />
+<link rel="icon" href="/favicon-32x32.png" sizes="32x32" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+ <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#bc6c25"></link>       <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />

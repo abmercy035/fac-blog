@@ -69,7 +69,7 @@ export default function HomePage() {
       }
       console.error("Subscription error:", error)
     } finally {
-      setSubscribing(false)
+    setSubscribing(false)
       setTimeout(() => setSubscriptionMessage(""), 5000)
     }
   }

@@ -123,11 +123,10 @@ export const adminApi = {
     }
   },
 
-  async toggleSubscriberAlert(id: string): Promise<Subscriber> {
+  async toggleSubscriberAlert(id: string, alert: boolean): Promise<Subscriber> {
     try {
-      const subscriber = await apiClient.get(`/subscribers/${id}`)
       const response = await apiClient.put(`/subscribers/${id}`, {
-        receiveNewPostAlerts: !subscriber.data.receiveNewPostAlerts
+        receiveNewPostAlerts: !alert
       })
       return response.data
     } catch (error: any) {
@@ -137,11 +136,11 @@ export const adminApi = {
 
   async bulkUpdateSubscribers(ids: string[], updates: Partial<Subscriber>): Promise<Subscriber[]> {
     try {
-
       const promises = ids.map(id => apiClient.put(`/subscribers/${id}`, updates))
       const responses = await Promise.all(promises)
-      return responses.map(r => r.data)
-    } catch (error: any) {
+      
+      return responses.map(r => r.data)} 
+    catch (error: any) {
       throw new Error(error.response?.data?.message || "Failed to bulk update subscribers")
     }
   },

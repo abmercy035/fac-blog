@@ -127,9 +127,9 @@ export default function AdminSubscribersPage() {
     }
   }
 
-  const handleToggleAlert = async (id: string) => {
+  const handleToggleAlert = async (id: string, alert:boolean) => {
     try {
-      await adminApi.toggleSubscriberAlert(id)
+      await adminApi.toggleSubscriberAlert(id, alert)
       await loadSubscribers()
       toast.success("Alert preference updated")
     } catch (error) {
@@ -448,11 +448,12 @@ export default function AdminSubscribersPage() {
                       <TableCell>
                         <Button
                           variant="ghost"
+                          className="hover:text-gray-200"
                           size="sm"
-                          onClick={() => handleToggleAlert(subId)}
+                          onClick={() => handleToggleAlert(subId,subscriber.receiveNewPostAlerts)}
                         >
                           {subscriber.receiveNewPostAlerts ? (
-                            <Bell className="h-4 w-4 text-primary" />
+                            <Bell className="h-4 w-4 text-primary hover:text-gray-200" />
                           ) : (
                             <BellOff className="h-4 w-4 text-muted-foreground" />
                           )}
