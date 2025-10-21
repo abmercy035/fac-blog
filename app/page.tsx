@@ -163,7 +163,7 @@ export default function HomePage() {
           ) : (
             <>
               {/* Featured Section - Only render if there are 1-3 posts */}
-         { posts.length &&  (
+         { posts.length > 0 &&  (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 mb-4 md:items-start">
                   {/* First post */}
                 <div className="h-full">
