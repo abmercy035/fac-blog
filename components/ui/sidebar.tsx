@@ -60,11 +60,13 @@ function SidebarProvider({
   className,
   style,
   children,
+  noWrapper = false,
   ...props
 }: React.ComponentProps<'div'> & {
   defaultOpen?: boolean
   open?: boolean
   onOpenChange?: (open: boolean) => void
+  noWrapper?: boolean
 }) {
   const isMobile = useIsMobile()
   const [openMobile, setOpenMobile] = React.useState(false)
@@ -118,6 +120,14 @@ function SidebarProvider({
     }),
     [state, open, setOpen, isMobile, openMobile, setOpenMobile, toggleSidebar],
   )
+
+  if (noWrapper) {
+    return (
+      <SidebarContext.Provider value={contextValue}>
+        <TooltipProvider delayDuration={0}>{children}</TooltipProvider>
+      </SidebarContext.Provider>
+    )
+  }
 
   return (
     <SidebarContext.Provider value={contextValue}>

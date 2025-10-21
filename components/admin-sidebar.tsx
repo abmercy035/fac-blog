@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button"
 import { useAuth } from "@/hooks/use-auth"
 import { permissions } from "@/lib/auth"
 import { LayoutDashboard, FileText, MessageSquare, Users, LogOut, PenTool, Shield, Mail } from "lucide-react"
+import { useSidebar } from "@/components/ui/sidebar"
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet"
 
 const adminNavItems = [
   {
@@ -61,10 +63,23 @@ export function AdminSidebar() {
 
   const allowedNavItems = adminNavItems.filter((item) => item.permission(user))
 
-  return (
-    <div className="flex flex-col h-full bg-card border-r">
+  // Try to read sidebar context; provider may be absent in some pages
+  let sidebarCtx = null
+  try {
+    sidebarCtx = useSidebar()
+  } catch (e) {
+    sidebarCtx = null
+  }
+
+  const isMobile = sidebarCtx?.isMobile ?? false
+  const open = sidebarCtx?.open ?? true
+  const openMobile = sidebarCtx?.openMobile ?? false
+  const setOpenMobile = sidebarCtx?.setOpenMobile
+
+  const content = (
+    <div className="flex flex-col h-full bg-card  border">
       <div className="p-6">
-        <h2 className="text-lg font-semibold">Admin Panel</h2>
+        <h2 className="text-lg font-semibold text-secondary-foreground">Admin Panel</h2>
         <p className="text-sm text-muted-foreground">Welcome, {user.name}</p>
       </div>
 
@@ -73,14 +88,19 @@ export function AdminSidebar() {
           const Icon = item.icon
           const isActive = pathname === item.href
 
+          const btnClass = cn(
+            'w-full justify-start text-secondary-foreground',
+            isActive && 'bg-secondary text-secondary-foreground'
+          )
+
           return (
             <Link key={item.href} href={item.href}>
               <Button
-                variant={isActive ? "secondary" : "ghost"}
-                className={cn("w-full justify-start", isActive && "bg-secondary")}
+                variant={isActive ? 'secondary' : 'ghost'}
+                className={btnClass}
               >
-                <Icon className="h-4 w-4 mr-3" />
-                {item.title}
+                <Icon className="h-4 w-4 mr-3 text-secondary-foreground" />
+                <span className={cn('flex-1', !open && 'hidden')}>{item.title}</span>
               </Button>
             </Link>
           )
@@ -94,9 +114,25 @@ export function AdminSidebar() {
           onClick={logout}
         >
           <LogOut className="h-4 w-4 mr-3" />
-          Logout
+          <span className={cn(!open && 'hidden')}>Logout</span>
         </Button>
       </div>
     </div>
   )
+
+  if (isMobile) {
+    return (
+      <Sheet open={openMobile} onOpenChange={setOpenMobile}>
+        <SheetContent side="left" className="w-72">
+          <SheetHeader>
+            <SheetTitle>Admin</SheetTitle>
+            <SheetDescription className="text-gray-300">Admin navigation</SheetDescription>
+          </SheetHeader>
+          {content}
+        </SheetContent>
+      </Sheet>
+    )
+  }
+
+  return <div className={cn(open ? 'w-full h-full' : 'w-full')}>{content}</div>
 }

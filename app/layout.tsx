@@ -106,10 +106,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-      <link rel="manifest" href="/site.webmanifest" />
-<link rel="icon" href="/favicon-32x32.png" sizes="32x32" />
-<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
- <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#bc6c25"></link>       <script
+        <link rel="manifest" href={`${siteConfig.url}/site.webmanifest`} />
+        <link rel="icon" href={`${siteConfig.url}/favicon.ico`} />
+        <link rel="icon" href={`${siteConfig.url}/favicon-32x32.png`} sizes="32x32" />
+        <link rel="icon" href={`${siteConfig.url}/favicon-16x16.png`} sizes="16x16" />
+        <link rel="apple-touch-icon" href={`${siteConfig.url}/apple-touch-icon.png`} />
+        <link rel="mask-icon" href={`${siteConfig.url}/safari-pinned-tab.svg`} color="#bc6c25" />
+        <meta name="theme-color" content="#bc6c25" />
+        <meta name="msapplication-TileColor" content="#bc6c25" />
+        <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />

@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -48,6 +48,114 @@ export function PostEditor({ postId, mode }: PostEditorProps) {
   const [isPublished, setIsPublished] = useState(true)
   const [featuredImage, setFeaturedImage] = useState("")
   const [slug, setSlug] = useState("")
+  const [bannerFile, setBannerFile] = useState<File | null>(null)
+  const [bannerPreview, setBannerPreview] = useState<string | null>(null)
+  const [uploadProgress, setUploadProgress] = useState<number | null>(null)
+  const [uploading, setUploading] = useState(false)
+
+  const fileInputRef = useRef<HTMLInputElement | null>(null)
+
+ const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const f = e.target.files?.[0] ?? null
+    setBannerFile(f)
+    setBannerPreview(f ? URL.createObjectURL(f) : null)
+  }
+
+  const uploadToCloudinaryUnsigned = (file: File) => {
+    return new Promise<{ url: string }>((resolve, reject) => {
+      const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
+      const uploadPreset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET
+      if (!cloudName || !uploadPreset) {
+        return reject(new Error("Cloudinary not configured"))
+      }
+      const url = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`
+      const fd = new FormData()
+      fd.append("file", file)
+      fd.append("upload_preset", uploadPreset)
+
+      const xhr = new XMLHttpRequest()
+      xhr.open("POST", url)
+      xhr.upload.onprogress = (event) => {
+        if (event.lengthComputable) {
+          setUploadProgress(Math.round((event.loaded / event.total) * 100))
+        }
+      }
+      xhr.onload = () => {
+        setUploading(false)
+        setUploadProgress(null)
+        if (xhr.status >= 200 && xhr.status < 300) {
+          try {
+            const resp = JSON.parse(xhr.responseText)
+            resolve({ url: resp.secure_url })
+          } catch (err) {
+            reject(err)
+          }
+        } else {
+          reject(new Error(`Upload failed: ${xhr.status}`))
+        }
+      }
+      xhr.onerror = () => {
+        setUploading(false)
+        setUploadProgress(null)
+        reject(new Error("Upload error"))
+      }
+      setUploading(true)
+      xhr.send(fd)
+    })
+  }
+
+  const uploadToCloudinarySigned = async (file: File): Promise<{ url: string }> => {
+    try {
+      const signRes = await blogApi.uploadBanner()
+      const { signature, timestamp, apiKey, cloudName } = signRes
+
+      if (!signature || !timestamp || !apiKey || !cloudName) {
+        throw new Error("Invalid signature response from server")
+      }
+
+      const url = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`
+      const fd = new FormData()
+      fd.append("file", file)
+      fd.append("api_key", apiKey)
+      fd.append("timestamp", String(timestamp))
+      fd.append("signature", signature)
+
+      const resp = await fetch(url, { method: "POST", body: fd })
+      if (!resp.ok) {
+        const text = await resp.text().catch(() => "")
+        throw new Error(`Upload failed: ${resp.status} ${text}`)
+      }
+      const data = await resp.json()
+      return { url: data.secure_url }
+    } catch (err) {
+      throw new Error(err instanceof Error ? err.message : "Failed to upload (signed)")
+    }
+  }
+
+  const handleUploadClick = async () => {
+    if (!bannerFile) return
+    try {
+      setUploading(true)
+      let result: { url: any }
+
+      const hasUnsignedPreset = Boolean(process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET)
+      if (hasUnsignedPreset) {
+        result = await uploadToCloudinaryUnsigned(bannerFile)
+      } else {
+        result = await uploadToCloudinarySigned(bannerFile)
+      }
+
+  // Save the returned image url into the editor state so it persists on save
+  setFeaturedImage(result.url)
+  setBannerPreview(result.url)
+    } catch (err) {
+      console.error(err)
+      setError(err instanceof Error ? err.message : 'Upload failed')
+    } finally {
+      setUploading(false)
+      setUploadProgress(null)
+    }
+  }
 
   useEffect(() => {
     const loadData = async () => {
@@ -80,6 +188,7 @@ export function PostEditor({ postId, mode }: PostEditorProps) {
             setTags(post.tags)
             setIsPublished(post.isPublished)
             setFeaturedImage(post.featuredImage)
+            setBannerPreview(post.featuredImage || null)
             setSlug(post.slug)
           }
         } catch (err) {
@@ -94,6 +203,11 @@ export function PostEditor({ postId, mode }: PostEditorProps) {
       setSelectedAuthor(currentAuthor)
     }
   }, [mode, postId, user, authors])
+
+  // keep bannerPreview in sync when featuredImage changes (e.g., after upload)
+  useEffect(() => {
+    if (featuredImage) setBannerPreview(featuredImage)
+  }, [featuredImage])
 
   useEffect(() => {
     if (mode === "create" && title) {
@@ -143,8 +257,7 @@ export function PostEditor({ postId, mode }: PostEditorProps) {
     }
 
     setSaving(true)
-    setError(null)
-
+    setError(null)   
     try {
       const postData = {
         title: title.trim(),
@@ -157,6 +270,8 @@ export function PostEditor({ postId, mode }: PostEditorProps) {
         slug: slug.trim(),
         featuredImage: featuredImage || "/placeholder.jpg",
       }
+
+      console.debug('[post-editor] saving postData:', postData)
 
       if (mode === "create") {
         await adminApi.createPost(postData)
@@ -316,12 +431,47 @@ export function PostEditor({ postId, mode }: PostEditorProps) {
                   onChange={(e) => setFeaturedImage(e.target.value)}
                   placeholder="https://example.com/image.jpg"
                 />
+                       <button
+            type="button"
+            className="btn text-sm bg-muted cursor-pointer rounded p-2 mt-2"
+            onClick={() => fileInputRef.current?.click()}
+          >
+          Choose media from your computer
+          </button>
               </div>
 
-              <div className="flex items-center space-x-2 hidden">
-                <Switch id="published" checked={isPublished} onCheckedChange={setIsPublished} />
-                <Label htmlFor="published">Save as Draft</Label>
-              </div>
+               <div className="mb-4">
+        <label className="block mb-2 font-medium">Banner image</label>
+        <div className="flex flex-col gap-2 items-center">
+<div className="flex w-full flex-col">
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+            className="hidden"
+            id="banner-file-input"
+          />
+   
+          </div>
+<div className="flex w-full flex-col gap-4">
+          {bannerPreview && (
+            <img src={bannerPreview} alt="banner preview" className="max-h-26 object-cover rounded" />
+          )}
+         
+          <button
+            type="button"
+            disabled={!bannerFile || uploading}
+            onClick={handleUploadClick}
+            className="btn bg-primary cursor-pointer max-w-40 mx-auto rounded text-gray-200 p-2"
+          >
+            {uploading ? `Uploading ${uploadProgress ?? ""}%` : "Upload as Banner"}
+          </button>
+
+</div>
+        </div>
+
+      </div>
             </CardContent>
           </Card>
 
