@@ -140,7 +140,7 @@ export function PostEditor({ postId, mode }: PostEditorProps) {
 
       const hasUnsignedPreset = Boolean(process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET)
       if (hasUnsignedPreset) {
-        result = await uploadToCloudinaryUnsigned(bannerFile)
+        result = await uploadToCloudinarySigned(bannerFile)
       } else {
         result = await uploadToCloudinarySigned(bannerFile)
       }
