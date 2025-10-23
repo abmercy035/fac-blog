@@ -159,7 +159,7 @@ export default async function PostPage({ params }: PostPageProps) {
             <div className="flex items-center justify-between mb-8">
               <div className="flex items-center space-x-4">
                 <Avatar className="h-12 w-12">
-                  <AvatarImage src={post.author.avatar || "/placeholder.svg"} alt={post.author.name} />
+                  <AvatarImage src={post.author.avatar || "/placeholder.svg"} alt={post.author.name} className="object-fill aspect-3/2" />
                   <AvatarFallback>
                     {post.author.name
                       .split(" ")
