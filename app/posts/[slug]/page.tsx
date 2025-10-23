@@ -159,7 +159,7 @@ export default async function PostPage({ params }: PostPageProps) {
             <div className="flex items-center justify-between mb-8">
               <div className="flex items-center space-x-4">
                 <Avatar className="h-12 w-12">
-                  <AvatarImage src={post.author.avatar || "/placeholder.svg"} alt={post.author.name} className="object-fill aspect-3/2" />
+                  <AvatarImage src={post.author.avatar || "https://res.cloudinary.com/ddf2kzsyy/image/upload/c_crop,w_3800,h_3800,g_auto/v1761227574/_EN_0193_1_to2gtg.webp"} alt={post.author.name} className="object-contain aspect-auto" />
                   <AvatarFallback>
                     {post.author.name
                       .split(" ")
@@ -215,7 +215,7 @@ export default async function PostPage({ params }: PostPageProps) {
             <CardContent className="p-6">
               <div className="flex items-start space-x-4">
                 <Avatar className="h-16 w-16">
-                  <AvatarImage src={post.author.avatar || "/placeholder.svg"} alt={post.author.name} />
+                  <AvatarImage src={post.author.avatar || "https://res.cloudinary.com/ddf2kzsyy/image/upload/c_crop,w_3800,h_3800,g_auto/v1761227574/_EN_0193_1_to2gtg.webp"} alt={post.author.name} />
                   <AvatarFallback>
                     {post.author.name
                       .split(" ")

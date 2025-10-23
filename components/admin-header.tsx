@@ -39,7 +39,7 @@ export function AdminHeader() {
               </div>
             </div>
             <Avatar className="h-8 w-8">
-              <AvatarImage src={user.avatar || "https://res.cloudinary.com/ddf2kzsyy/image/upload/v1761220211/_EN_0193_1_to2gtg.webp"} alt={user.name} />
+              <AvatarImage src={user.avatar || "https://res.cloudinary.com/ddf2kzsyy/image/upload/c_crop,w_3800,h_3800,g_auto/v1761227574/_EN_0193_1_to2gtg.webp"} alt={user.name} />
               <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
             </Avatar>
           </div>
