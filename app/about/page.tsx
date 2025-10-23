@@ -47,7 +47,7 @@ export default function AboutPage() {
             <section>
               <h2 className="text-lg md:text-3xl font-bold text-foreground mb-6">What You'll Find Here</h2>
               <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
-                A collection of original poems, essays, and reflections that explore life’s depths — from the melancholic and introspective to the hopeful and transformative. The writing here seeks to evoke emotion, provoke thought, and foster a renewed appreciation for the art of language
+                A collection of original poems, essays, and reflections that explore life’s depths — from the melancholic and introspective to the hopeful and transformative. The writing here seeks to evoke emotion, provoke thought, and foster a renewed appreciation for the art of language.
               </p>
             </section>
           </div>
