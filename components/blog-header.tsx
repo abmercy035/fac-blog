@@ -21,25 +21,25 @@ export function BlogHeader() {
   const pathname = usePathname()
   const [categories, setCategories] = useState<Category[]>([
     	{
-        _id: 1,
+        id: "1",
 				name: 'Poetry & Prose',
 				description: 'Original poems and lyrical prose exploring humanity, spirituality, emotion, and imagination',
 				slug: 'poetry-prose'
 			},
 			{
-        _id: 2,
+        id: "2",
 				name: 'Faith & Spirituality',
 				description: 'Faith based writing, spiritual reflections, and critical views on religion and belief systems',
 				slug: 'faith-spirituality'
 			},
 			{
-        _id: 3,
+        id: "3",
 				name: 'Culture & Society',
 				description: 'Explorations of societal trends, cultural values, and the tensions between tradition and modernity',
 				slug: 'culture-society'
 			},
 			{
-        _id: 4,
+        id: "4",
 				name: 'Essays & Reviews',
 				description: 'Analytical pieces, cultural critique, social commentary, personal insights, and media/book reviews',
 				slug: 'essays-reviews'
