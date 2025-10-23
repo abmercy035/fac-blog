@@ -51,16 +51,46 @@ Faith Meets Art, Redefining Culture
           <div>
             <h3 className="font-bold text-sm md:text-lg mb-4">Categories</h3>
             <ul className="space-y-2">
-              {categories.map((category) => (
-                <li key={category._id || category.id}>
+             <li>
                   <Link 
-                    href={`/categories/${category.slug}`}
+                    href={`/categories/poetry-prose`}
                     className="text-sm text-background/80 hover:text-primary transition-colors"
                   >
-                    {category.name}
+                    Poetry & Prose
                   </Link>
                 </li>
-              ))}
+             <li>
+                  <Link 
+                    href={`/categories/faith-spirituality`}
+                    className="text-sm text-background/80 hover:text-primary transition-colors"
+                  >
+                    Faith & Spirituality
+                  </Link>
+                </li>
+             <li>
+                  <Link 
+                    href={`/categories/culture-society`}
+                    className="text-sm text-background/80 hover:text-primary transition-colors"
+                  >
+                    Culture & Society
+                  </Link>
+                </li>
+             <li>
+                  <Link 
+                    href={`/categories/`}
+                    className="text-sm text-background/80 hover:text-primary transition-colors"
+                  >
+                    
+                  </Link>
+                </li>
+             <li>
+                  <Link 
+                    href={`/categories/essays-reviews`}
+                    className="text-sm text-background/80 hover:text-primary transition-colors"
+                  >
+                    Essays & Reviews
+                  </Link>
+                </li>
             </ul>
           </div>
 
