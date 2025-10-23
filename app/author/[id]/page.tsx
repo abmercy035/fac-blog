@@ -40,7 +40,7 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
           {/* Author Profile */}
           <div className="text-center mb-12">
             <Avatar className="md:h-62 h-42 md:w-62 w-42 mx-auto mb-6">
-              <AvatarImage src={author.avatar || "/placeholder.svg"} alt={author.name} />
+              <AvatarImage src={author.avatar || "https://res.cloudinary.com/ddf2kzsyy/image/upload/v1761220211/_EN_0193_1_to2gtg.webp"} alt={author.name} />
               <AvatarFallback className="text-2xl">
                 {author.name
                   .split(" ")
