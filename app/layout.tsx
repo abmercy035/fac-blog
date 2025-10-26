@@ -98,7 +98,7 @@ export default function RootLayout({
       name: siteConfig.name,
       logo: {
         "@type": "ImageObject",
-        url: `${siteConfig.url}/placeholder-logo.png`,
+        url: `${siteConfig.url}/logo.png`,
       },
     },
   }

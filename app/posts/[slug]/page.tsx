@@ -80,7 +80,7 @@ export default async function PostPage({ params }: PostPageProps) {
   if (!post) {
     notFound()
   }
-  
+
   const readingTime = Math.ceil(post.content.split(" ").length / 200)
 
   const jsonLd = {
@@ -101,7 +101,7 @@ export default async function PostPage({ params }: PostPageProps) {
       name: siteConfig.name,
       logo: {
         "@type": "ImageObject",
-        url: `${siteConfig.url}/placeholder-logo.png`,
+        url: `${siteConfig.url}/logo.png`,
       },
     },
     mainEntityOfPage: {
@@ -187,7 +187,7 @@ export default async function PostPage({ params }: PostPageProps) {
             {/* Featured Image */}
             <div className="relative h-96 rounded-lg overflow-hidden mb-8">
               <Image
-                src={post.featuredImage || "/placeholder.svg"}
+            src={post.featuredImage || "/placeholder.jpg"}
                 alt={post.title}
                 fill
                 className="object-cover"

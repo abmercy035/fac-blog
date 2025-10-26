@@ -28,7 +28,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
                 </pre>
               </div>
             ) : (
-              <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono text-sm md:text-base" {...props}>
+              <code className="bg-muted px-1.5 py-0.5 rounded text-sm font-mono md:text-base" {...props}>
                 {children}
               </code>
             )
