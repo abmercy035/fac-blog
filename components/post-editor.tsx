@@ -61,49 +61,7 @@ export function PostEditor({ postId, mode }: PostEditorProps) {
     setBannerPreview(f ? URL.createObjectURL(f) : null)
   }
 
-  const uploadToCloudinaryUnsigned = (file: File) => {
-    return new Promise<{ url: string }>((resolve, reject) => {
-      const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
-      const uploadPreset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET
-      if (!cloudName || !uploadPreset) {
-        return reject(new Error("Cloudinary not configured"))
-      }
-      const url = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`
-      const fd = new FormData()
-      fd.append("file", file)
-      fd.append("upload_preset", uploadPreset)
-
-      const xhr = new XMLHttpRequest()
-      xhr.open("POST", url)
-      xhr.upload.onprogress = (event) => {
-        if (event.lengthComputable) {
-          setUploadProgress(Math.round((event.loaded / event.total) * 100))
-        }
-      }
-      xhr.onload = () => {
-        setUploading(false)
-        setUploadProgress(null)
-        if (xhr.status >= 200 && xhr.status < 300) {
-          try {
-            const resp = JSON.parse(xhr.responseText)
-            resolve({ url: resp.secure_url })
-          } catch (err) {
-            reject(err)
-          }
-        } else {
-          reject(new Error(`Upload failed: ${xhr.status}`))
-        }
-      }
-      xhr.onerror = () => {
-        setUploading(false)
-        setUploadProgress(null)
-        reject(new Error("Upload error"))
-      }
-      setUploading(true)
-      xhr.send(fd)
-    })
-  }
-
+ 
   const uploadToCloudinarySigned = async (file: File): Promise<{ url: string }> => {
     try {
       const signRes = await blogApi.uploadBanner()
@@ -324,7 +282,7 @@ export function PostEditor({ postId, mode }: PostEditorProps) {
             Save Draft
           </Button>
           <Button onClick={() => handleSave(true)} disabled={saving}>
-            {saving ? "Publishing..." : "Publish"}
+            {(saving || uploading) ? "Publishing..." : "Publish"}
           </Button>
         </div>
       </div>
