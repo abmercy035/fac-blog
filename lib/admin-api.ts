@@ -23,8 +23,9 @@ export const adminApi = {
 
   async updatePost(id: string, updates: Partial<BlogPost>): Promise<BlogPost> {
     try {
-      const response = await apiClient.put(`/posts/${id}`, updates)
+      const response = await apiClient.put(`/posts/${id}`, updates);
       return response.data
+
     } catch (error: any) {
       throw new Error(error.response?.data?.message || "Failed to update post")
     }
@@ -138,8 +139,9 @@ export const adminApi = {
     try {
       const promises = ids.map(id => apiClient.put(`/subscribers/${id}`, updates))
       const responses = await Promise.all(promises)
-      
-      return responses.map(r => r.data)} 
+
+      return responses.map(r => r.data)
+    }
     catch (error: any) {
       throw new Error(error.response?.data?.message || "Failed to bulk update subscribers")
     }

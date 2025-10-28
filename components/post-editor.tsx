@@ -55,7 +55,7 @@ export function PostEditor({ postId, mode }: PostEditorProps) {
 
   const fileInputRef = useRef<HTMLInputElement | null>(null)
 
- const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files?.[0] ?? null
     setBannerFile(f)
     setBannerPreview(f ? URL.createObjectURL(f) : null)
@@ -145,9 +145,9 @@ export function PostEditor({ postId, mode }: PostEditorProps) {
         result = await uploadToCloudinarySigned(bannerFile)
       }
 
-  // Save the returned image url into the editor state so it persists on save
-  setFeaturedImage(result.url)
-  setBannerPreview(result.url)
+      // Save the returned image url into the editor state so it persists on save
+      setFeaturedImage(result.url)
+      setBannerPreview(result.url)
     } catch (err) {
       console.error(err)
       setError(err instanceof Error ? err.message : 'Upload failed')
@@ -257,7 +257,7 @@ export function PostEditor({ postId, mode }: PostEditorProps) {
     }
 
     setSaving(true)
-    setError(null)   
+    setError(null)
     try {
       const postData = {
         title: title.trim(),
@@ -275,10 +275,20 @@ export function PostEditor({ postId, mode }: PostEditorProps) {
 
       if (mode === "create") {
         await adminApi.createPost(postData)
+        await fetch('/api/revalidate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ path: `/posts/${postData.slug}` }),
+        })
         setSuccess("Post created successfully!")
         setTimeout(() => router.push("/admin/posts"), 1500)
       } else if (postId) {
         await adminApi.updatePost(postId, { ...postData, isPublished: publish })
+        await fetch('/api/revalidate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ path: `/posts/${postData.slug}` }),
+        })
         setSuccess("Post updated successfully!")
       }
     } catch (err) {
@@ -431,47 +441,47 @@ export function PostEditor({ postId, mode }: PostEditorProps) {
                   onChange={(e) => setFeaturedImage(e.target.value)}
                   placeholder="https://example.com/image.jpg"
                 />
-                       <button
-            type="button"
-            className="btn text-sm bg-muted cursor-pointer rounded p-2 mt-2"
-            onClick={() => fileInputRef.current?.click()}
-          >
-          Choose media from your computer
-          </button>
+                <button
+                  type="button"
+                  className="btn text-sm bg-muted cursor-pointer rounded p-2 mt-2"
+                  onClick={() => fileInputRef.current?.click()}
+                >
+                  Choose media from your computer
+                </button>
               </div>
 
-               <div className="mb-4">
-        <label className="block mb-2 font-medium">Banner image</label>
-        <div className="flex flex-col gap-2 items-center">
-<div className="flex w-full flex-col">
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept="image/*"
-            onChange={handleFileChange}
-            className="hidden"
-            id="banner-file-input"
-          />
-   
-          </div>
-<div className="flex w-full flex-col gap-4">
-          {bannerPreview && (
-            <img src={bannerPreview} alt="banner preview" className="max-h-26 object-cover rounded" />
-          )}
-         
-          <button
-            type="button"
-            disabled={!bannerFile || uploading}
-            onClick={handleUploadClick}
-            className="btn bg-primary cursor-pointer max-w-40 mx-auto rounded text-gray-200 p-2"
-          >
-            {uploading ? `Uploading ${uploadProgress ?? ""}%` : "Upload as Banner"}
-          </button>
+              <div className="mb-4">
+                <label className="block mb-2 font-medium">Banner image</label>
+                <div className="flex flex-col gap-2 items-center">
+                  <div className="flex w-full flex-col">
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept="image/*"
+                      onChange={handleFileChange}
+                      className="hidden"
+                      id="banner-file-input"
+                    />
 
-</div>
-        </div>
+                  </div>
+                  <div className="flex w-full flex-col gap-4">
+                    {bannerPreview && (
+                      <img src={bannerPreview} alt="banner preview" className="max-h-26 object-cover rounded" />
+                    )}
 
-      </div>
+                    <button
+                      type="button"
+                      disabled={!bannerFile || uploading}
+                      onClick={handleUploadClick}
+                      className="btn bg-primary cursor-pointer max-w-40 mx-auto rounded text-gray-200 p-2"
+                    >
+                      {uploading ? `Uploading ${uploadProgress ?? ""}%` : "Upload as Banner"}
+                    </button>
+
+                  </div>
+                </div>
+
+              </div>
             </CardContent>
           </Card>
 

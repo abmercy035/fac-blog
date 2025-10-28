@@ -74,6 +74,7 @@ export default function HomePage() {
     }
   }
 
+console.log("landing", posts)
   return (
     <div className="min-h-screen bg-background">
       <BlogHeader />

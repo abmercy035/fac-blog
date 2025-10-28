@@ -21,6 +21,10 @@ interface PostPageProps {
   }
 }
 
+export const dynamic = "force-dynamic"
+export const fetchCache = "force-no-store"
+export const revalidate = 0; 
+
 export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
   const post = await blogApi.getPost(params.slug)
 
@@ -80,6 +84,7 @@ export default async function PostPage({ params }: PostPageProps) {
   if (!post) {
     notFound()
   }
+console.log("post", post)
 
   const readingTime = Math.ceil(post.content.split(" ").length / 200)
 
@@ -261,14 +266,4 @@ export default async function PostPage({ params }: PostPageProps) {
     </>
   )
 }
-
-export async function generateStaticParams() {
-  return [
-    { slug: "when-faith-finds-a-canvas" },
-    { slug: "the-sacred-in-the-ordinary" },
-    { slug: "the-art-of-worship" },
-    { slug: "culture-without-wonder" },
-    { slug: "faith-in-a-skeptical-world" },
-    { slug: "intersection-faith-art-culture" },
-  ]
-}
+ 
