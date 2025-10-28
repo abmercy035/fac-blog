@@ -79,7 +79,7 @@ export default function AdminDashboard() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats.totalPosts}</div>
-            <p className="text-xs text-muted-foreground">Published articles</p>
+            <p className="text-xs text-muted-foreground">Publications</p>
           </CardContent>
         </Card>
 

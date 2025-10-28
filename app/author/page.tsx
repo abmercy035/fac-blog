@@ -41,5 +41,5 @@ export default async function AuthorsPage() {
 
 export const metadata = {
   title: "Author | FAC",
-  description: "Meet the talented author behind FAC's insightful articles",
+  description: "Meet the talented author behind FAC's insightful publications",
 }

@@ -20,7 +20,7 @@ export default async function CategoriesPage() {
           <div className="text-center mb-12">
             <h1 className="text-2xl md:text-4xl font-bold text-foreground mb-4 text-balance">Browse by Category</h1>
             <p className="text-base md:text-xl text-muted-foreground text-pretty">
-              Explore articles organized by topics and technologies
+              Explore pieces organized by topics and themes
             </p>
           </div>
 
@@ -37,5 +37,5 @@ export default async function CategoriesPage() {
 
 export const metadata = {
   title: "Categories | FAC",
-  description: "Browse articles by category - Frontend, Backend, DevOps and more",
+  description: "Browse publications by category - Poetry & Prose, Faith & Spirituality, Culture & Society",
 }

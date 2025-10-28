@@ -68,7 +68,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             <h1 className="text-2xl md:text-4xl font-bold text-foreground mb-4 text-balance">{category.name}</h1>
             <p className="text-base md:text-xl text-muted-foreground mb-6 max-w-2xl mx-auto text-pretty">{category.description}</p>
             <Badge variant="secondary" className="text-base px-4 py-2 text-xs md:text-base">
-              {total} {total === 1 ? "article" : "articles"}
+              {total} {total === 1 ? "publication" : "publications"}
             </Badge>
           </div>
           <section>
@@ -91,7 +91,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   </>
             ) : (
               <div className="text-center py-12">
-                <p className="text-muted-foreground text-lg">No articles in this category yet.</p>
+                <p className="text-muted-foreground text-lg">No publications in this category yet.</p>
               </div>
             )}
           </section>

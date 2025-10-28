@@ -89,7 +89,7 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
             </div>
 
             <p className="text-muted-foreground md:text-base text-sm">
-              {total} {total === 1 ? "article" : "articles"} published
+              {total} {total === 1 ? "publication" : "publications"}
             </p>
           </div>
 
@@ -115,7 +115,7 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
 
           {/* Author's Posts */}
           <section>
-            <h2 className="md:text-3xl text-xl font-semibold text-foreground mb-8">Articles by {author.name}</h2>
+            <h2 className="md:text-3xl text-xl font-semibold text-foreground mb-8">Publication by {author.name}</h2>
 
             {posts.length > 0 ? (
               <>
@@ -137,7 +137,7 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
               </>
             ) : (
               <div className="text-center py-12">
-                <p className="text-muted-foreground md:text-lg text-sm">No articles published yet.</p>
+                <p className="text-muted-foreground md:text-lg text-sm">No publications yet.</p>
               </div>
             )}
           </section>

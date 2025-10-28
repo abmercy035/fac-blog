@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { Facebook, Twitter, Instagram, Mail, Linkedin } from "lucide-react"
+import { Facebook, Mail, Linkedin } from "lucide-react"
 import { useEffect, useState } from "react"
 import { blogApi } from "@/lib/api"
 import type { Category } from "@/lib/blog-data"

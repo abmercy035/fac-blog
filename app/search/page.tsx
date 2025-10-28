@@ -57,7 +57,7 @@ export default function SearchPage() {
           <div className="text-center mb-12">
             <h1 className="text-4xl font-bold text-foreground mb-6 text-balance">Search Posts</h1>
             <p className="text-xl text-muted-foreground mb-8 text-pretty">
-              Find articles by title, content, tags, or author
+              Find publications by title, content, tags, or author
             </p>
 
             <form onSubmit={handleSearch} className="max-w-2xl mx-auto">

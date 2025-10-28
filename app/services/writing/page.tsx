@@ -30,7 +30,7 @@ export default function WritingPage() {
   return (
     <div className="min-h-screen bg-background">
       <BlogHeader />
-      
+
       <main className="container mx-auto px-4 py-12">
         {/* Hero Section */}
         <div className="max-w-4xl mx-auto text-center mb-16">
@@ -39,7 +39,7 @@ export default function WritingPage() {
             Bringing Your Faith-Centered Stories to Life
           </h1>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            Every story deserves to be told with grace, clarity, and impact. Our writing services help you craft 
+            Every story deserves to be told with grace, clarity, and impact. Our writing services help you craft
             compelling content that resonates with your audience while staying true to your faith and values.
           </p>
         </div>
@@ -51,19 +51,17 @@ export default function WritingPage() {
               <h2 className="text-3xl font-bold mb-6">What We Offer</h2>
               <div className="prose prose-lg max-w-none">
                 <p className="text-muted-foreground leading-relaxed mb-4">
-                  At FAC, we specialize in faith-centered writing that speaks to the heart while engaging the mind. 
-                  Whether you need blog posts, articles, devotionals, book manuscripts, website content, or creative 
-                  storytelling, we bring a unique blend of literary craftsmanship and spiritual sensitivity to every project.
+                  FAC speaks where faith meets imagination, crafting words that move the spirit and engage the mind. Each project is an act of devotion, shaped by both craftsmanship and conviction.
                 </p>
                 <p className="text-muted-foreground leading-relaxed mb-4">
-                  Our team of experienced writers understands the delicate balance between artistry and message. 
-                  We don't just write—we collaborate with you to ensure your voice remains authentic while reaching 
-                  your intended audience with clarity and power. From concept to final draft, we're committed to 
+                  As an experienced writer, I understands the delicate balance between artistry and message.
+                  I don't just write, I collaborate with you to ensure your voice remains authentic while reaching
+                  your intended audience with clarity and power. From concept to final draft, I am committed to
                   excellence in every word.
                 </p>
                 <p className="text-muted-foreground leading-relaxed">
-                  Whether you're a ministry leader, author, artist, or creative entrepreneur, we help you communicate 
-                  your vision through writing that inspires, challenges, and transforms. Let us help you tell your story 
+                  Whether you're a ministry leader, author, artist, or creative entrepreneur, I help you communicate
+                  your vision through writing that inspires, challenges, and transforms. Let me help you tell your story
                   the way it deserves to be told.
                 </p>
               </div>
@@ -82,7 +80,7 @@ export default function WritingPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Receive polished, publication-ready content crafted by experienced writers who understand both 
+                  Receive polished, publication-ready content crafted by experienced writer who understand both
                   literary excellence and faith-centered messaging.
                 </p>
               </CardContent>
@@ -95,8 +93,7 @@ export default function WritingPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Maintain your unique voice and perspective while we refine your message for maximum impact and 
-                  clarity with your target audience.
+                  Let your voice shine, I’ll polish your message so it speaks clearly and powerfully to the people who matter most
                 </p>
               </CardContent>
             </Card>
@@ -108,8 +105,7 @@ export default function WritingPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  From blog posts and articles to books and devotionals, we handle a wide range of writing projects 
-                  tailored to your specific needs.
+                  I take pride in handling all kinds of writing projects, carefully tailoring each one to match your unique voice and vision.
                 </p>
               </CardContent>
             </Card>
@@ -121,7 +117,7 @@ export default function WritingPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Elevate your content with creative storytelling, compelling narratives, and engaging prose that 
+                  Elevate your content with creative storytelling, compelling narratives, and engaging prose that
                   captures attention and inspires action.
                 </p>
               </CardContent>
@@ -134,7 +130,7 @@ export default function WritingPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Benefit from thorough editing and revision services to ensure your content is clear, cohesive, 
+                  Benefit from thorough editing and revision services to ensure your content is clear, cohesive,
                   and free from errors before publication.
                 </p>
               </CardContent>
@@ -147,7 +143,7 @@ export default function WritingPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">
-                  Meet your deadlines with confidence. We respect your timeline and deliver quality work when you 
+                  Meet your deadlines with confidence. I respect your timeline and deliver quality work when you
                   need it without compromising excellence.
                 </p>
               </CardContent>
@@ -161,7 +157,7 @@ export default function WritingPage() {
             <CardHeader>
               <CardTitle className="text-3xl text-center">Request Writing Services</CardTitle>
               <p className="text-center text-muted-foreground mt-2">
-                Tell us about your project and we'll provide a custom quote and timeline within 48 hours.
+                Tell me about your project and I'll provide a custom quote and timeline within 48 hours.
               </p>
             </CardHeader>
             <CardContent>
@@ -169,19 +165,19 @@ export default function WritingPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="firstName">First Name *</Label>
-                    <Input 
-                      id="firstName" 
-                      placeholder="Sarah" 
-                      required 
+                    <Input
+                      id="firstName"
+                      placeholder="Sarah"
+                      required
                       style={{ borderRadius: '0.5rem' }}
                     />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="lastName">Last Name *</Label>
-                    <Input 
-                      id="lastName" 
-                      placeholder="Johnson" 
-                      required 
+                    <Input
+                      id="lastName"
+                      placeholder="Johnson"
+                      required
                       style={{ borderRadius: '0.5rem' }}
                     />
                   </div>
@@ -189,35 +185,35 @@ export default function WritingPage() {
 
                 <div className="space-y-2">
                   <Label htmlFor="email">Email *</Label>
-                  <Input 
-                    id="email" 
-                    type="email" 
-                    placeholder="sarah.johnson@example.com" 
-                    required 
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="sarah.johnson@example.com"
+                    required
                     style={{ borderRadius: '0.5rem' }}
                   />
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="phone">Phone Number</Label>
-                  <Input 
-                    id="phone" 
-                    type="tel" 
-                    placeholder="+1 (555) 123-4567" 
+                  <Input
+                    id="phone"
+                    type="tel"
+                    placeholder="+1 (555) 123-4567"
                     style={{ borderRadius: '0.5rem' }}
                   />
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="projectType">Project Type *</Label>
-                  <select 
-                    id="projectType" 
+                  <select
+                    id="projectType"
                     className="w-full px-3 py-2 border border-input bg-background text-foreground"
                     style={{ borderRadius: '0.5rem' }}
                     required
                   >
                     <option value="">Select a project type</option>
-                    <option value="blog">Blog Posts / Articles</option>
+                    <option value="blog">Blog Posts / Publications</option>
                     <option value="book">Book / Manuscript</option>
                     <option value="devotional">Devotionals / Reflections</option>
                     <option value="website">Website Content</option>
@@ -229,26 +225,26 @@ export default function WritingPage() {
 
                 <div className="space-y-2">
                   <Label htmlFor="wordCount">Estimated Word Count / Length</Label>
-                  <Input 
-                    id="wordCount" 
-                    placeholder="e.g., 2000 words, 5 blog posts, 200-page book" 
+                  <Input
+                    id="wordCount"
+                    placeholder="e.g., 2000 words, 5 blog posts, 200-page book"
                     style={{ borderRadius: '0.5rem' }}
                   />
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="deadline">Desired Deadline</Label>
-                  <Input 
-                    id="deadline" 
-                    type="date" 
+                  <Input
+                    id="deadline"
+                    type="date"
                     style={{ borderRadius: '0.5rem' }}
                   />
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="projectDetails">Project Details *</Label>
-                  <Textarea 
-                    id="projectDetails" 
+                  <Textarea
+                    id="projectDetails"
                     placeholder="Please describe your writing project, target audience, key messages, tone preferences, and any specific requirements..."
                     rows={6}
                     required
@@ -261,8 +257,8 @@ export default function WritingPage() {
 
                 <div className="space-y-2">
                   <Label htmlFor="budget">Budget Range (Optional)</Label>
-                  <select 
-                    id="budget" 
+                  <select
+                    id="budget"
                     className="w-full px-3 py-2 border border-input bg-background text-foreground"
                     style={{ borderRadius: '0.5rem' }}
                   >
@@ -275,8 +271,8 @@ export default function WritingPage() {
                   </select>
                 </div>
 
-                <Button 
-                  type="submit" 
+                <Button
+                  type="submit"
                   className="w-full bg-foreground text-background hover:bg-foreground/90"
                   size="lg"
                   style={{ borderRadius: '0.5rem' }}
