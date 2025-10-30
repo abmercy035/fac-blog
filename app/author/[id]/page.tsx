@@ -14,6 +14,10 @@ interface AuthorPageProps {
   }
 }
 
+export const dynamic = "force-dynamic"
+export const fetchCache = "force-no-store"
+export const revalidate = 0; 
+
 export default async function AuthorPage({ params }: AuthorPageProps) {
   const author = await blogApi.getAuthor(params.id)
   if (!author) {
@@ -115,7 +119,7 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
 
           {/* Author's Posts */}
           <section>
-            <h2 className="md:text-3xl text-xl font-semibold text-foreground mb-8">Publication by {author.name}</h2>
+            <h2 className="md:text-3xl text-xl font-semibold text-foreground mb-8">{ posts.length  > 1? "Publications" :"Publication"} by {author.name}</h2>
 
             {posts.length > 0 ? (
               <>

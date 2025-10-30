@@ -20,6 +20,10 @@ interface CategoryPageProps {
   }
 }
 
+export const dynamic = "force-dynamic"
+export const fetchCache = "force-no-store"
+export const revalidate = 0; 
+
 export async function generateMetadata({ params, searchParams }: CategoryPageServerProps): Promise<Metadata> {
   const category = await blogApi.getCategory(params.slug)
   if (!category) {
