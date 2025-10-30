@@ -20,30 +20,30 @@ import {
 export function BlogHeader() {
   const pathname = usePathname()
   const [categories, setCategories] = useState<Category[]>([
-    	{
-        id: "1",
-				name: 'Poetry & Prose',
-				description: 'Original poems and lyrical prose exploring humanity, spirituality, emotion, and imagination',
-				slug: 'poetry-prose'
-			},
-			{
-        id: "2",
-				name: 'Faith & Spirituality',
-				description: 'Faith based writing, spiritual reflections, and critical views on religion and belief systems',
-				slug: 'faith-spirituality'
-			},
-			{
-        id: "3",
-				name: 'Culture & Society',
-				description: 'Explorations of societal trends, cultural values, and the tensions between tradition and modernity',
-				slug: 'culture-society'
-			},
-			{
-        id: "4",
-				name: 'Essays & Reviews',
-				description: 'Analytical pieces, cultural critique, social commentary, personal insights, and media/book reviews',
-				slug: 'essays-reviews'
-			}
+    {
+      id: "1",
+      name: 'Poetry & Prose',
+      description: 'Original poems and lyrical prose exploring humanity, spirituality, emotion, and imagination',
+      slug: 'poetry-prose'
+    },
+    {
+      id: "2",
+      name: 'Faith & Spirituality',
+      description: 'Faith based writing, spiritual reflections, and critical views on religion and belief systems',
+      slug: 'faith-spirituality'
+    },
+    {
+      id: "3",
+      name: 'Culture & Society',
+      description: 'Explorations of societal trends, cultural values, and the tensions between tradition and modernity',
+      slug: 'culture-society'
+    },
+    {
+      id: "4",
+      name: 'Essays & Reviews',
+      description: 'Analytical pieces, cultural critique, social commentary, personal insights, and media/book reviews',
+      slug: 'essays-reviews'
+    }
   ])
 
   useEffect(() => {
@@ -66,7 +66,7 @@ export function BlogHeader() {
     { href: "/author/victory-atet", label: "Author" },
     { href: "/services", label: "Services" },
   ]
-  
+
 
   return (
     <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
@@ -90,7 +90,7 @@ export function BlogHeader() {
                 {item.label}
               </Link>
             ))}
-                {/* Categories Dropdown */}
+            {/* Categories Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger className={cn(
                 "flex items-center gap-1 transition-colors outline-none cursor-pointer",
@@ -121,15 +121,15 @@ export function BlogHeader() {
               </Link>
             ))}
 
-        
+
           </nav>
- 
+
           <div className="ml-8 flex items-center space-x-4">
             {/* Desktop Search */}
             <div className="hidden sm:block">
               <SearchDialog
                 trigger={
-                  <Button variant="outline" className="w-64 justify-start text-muted-foreground bg-transparent cursor-pointer">
+                  <Button variant="outline" className="md:w-64 justify-start text-muted-foreground bg-transparent cursor-pointer">
                     <Search className="h-6 w-6 mr-2" />
                     Search posts...
                   </Button>

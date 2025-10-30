@@ -12,7 +12,6 @@ interface BlogPostCardProps {
 }
 
 export function BlogPostCard({ post, featured = false }: BlogPostCardProps) {
-  console.log(post)
   if (featured) {
     return (
       <Card className="shadow-none transition-all duration-300 bg-transparent border-0 h-full flex flex-col gap-0!">
