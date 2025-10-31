@@ -2,14 +2,21 @@ import { BlogHeader } from "@/components/blog-header"
 import { CategoryCard } from "@/components/category-card"
 import { blogApi } from "@/lib/api"
 
+
+  export const dynamic = "force-dynamic"
+  export const fetchCache = "force-no-store"
+  export const revalidate = 0;
+
 export default async function CategoriesPage() {
-   let categories: any[] = []
-   
+  let categories: any[] = []
+
   try {
     categories = await blogApi.getCategories();
   } catch (e) {
     categories = []
   }
+
+
 
   return (
     <div className="min-h-screen bg-background">

@@ -32,7 +32,7 @@ export function BlogPostCard({ post, featured = false }: BlogPostCardProps) {
             </div>
             <div className="flex items-center space-x-2 md:text-base text-sm">
               <Calendar className="md:h-5 md:w-5 h-3 w-3" />
-              <span  className="md:text-base text-xs">{new Date(post.publishedAt).toLocaleDateString()}</span>
+              <span className="md:text-base text-xs">{new Date(post.publishedAt).toLocaleDateString()}</span>
             </div>
           </div>
 
