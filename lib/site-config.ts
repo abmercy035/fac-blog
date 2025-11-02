@@ -2,7 +2,7 @@ export const siteConfig = {
 	name: "FAC - Faith, Art & Culture",
 	description: "A thoughtful space where faith, art, and culture converge. Exploring how belief shapes creativity and art influences culture.",
 	url: "https://fac-blog.vercel.app", // Update with your actual domain
-	ogImage: "https://fac-blog.vercel.app/og-image.jpg", // Update with your actual OG image
+	ogImage: "https://fac-blog.vercel.app/logo.png", // TODO: Create proper 1200x630px OG image
 	links: {
 		twitter: "https://twitter.com/fac_blog",
 		github: "https://github.com/abmercy035/fac-blog",
